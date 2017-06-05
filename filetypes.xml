@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="quecoisa" type="PLAIN_TEXT" />
+      <mapping pattern="sdsada" type="PLAIN_TEXT" />
       <mapping pattern="Histórias+Desafios" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
