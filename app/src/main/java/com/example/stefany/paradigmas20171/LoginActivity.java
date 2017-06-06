@@ -1,5 +1,6 @@
 package com.example.stefany.paradigmas20171;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -32,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
+                finish();
+                startActivity(intentGoRegister);
             }
         });
 
@@ -82,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
+            //Operation Successful
             Toast.makeText(this, "Login complete", Toast.LENGTH_SHORT).show();
         }
     }
