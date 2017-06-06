@@ -1,0 +1,11 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="om_gan" type="Android Nine-Patch" />
+      <mapping pattern="om_gan.ogg" type="Native" />
+      <mapping pattern="quecoisa" type="PLAIN_TEXT" />
+      <mapping pattern="sdsada" type="PLAIN_TEXT" />
+      <mapping pattern="Histórias+Desafios" type="PLAIN_TEXT" />
+    </extensionMap>
+  </component>
+</application>
