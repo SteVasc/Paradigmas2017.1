@@ -92,7 +92,9 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             //Operation Successful
-            Toast.makeText(this, "Login complete", Toast.LENGTH_SHORT).show();
+            Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
+            finish();
+            startActivity(intentGoProfile);
         }
     }
 }
