@@ -31,6 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
                 attemptRegister();
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentGoProcessStepsActivity = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+                finish();
+                startActivity(intentGoProcessStepsActivity);
+            }
+        });
 
     }
 
