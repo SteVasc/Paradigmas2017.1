@@ -74,7 +74,10 @@ public class ProfileActivity extends AppCompatActivity
         } else if (id == R.id.nav_results) {
             //TODO go to result activity
         } else if (id == R.id.nav_calculate) {
-            //TODO start step-by-step calculation
+            //TODO check first access state
+            Intent intentGoSteps = new Intent(ProfileActivity.this, ProcessStepsActivity.class);
+            finish();
+            startActivity(intentGoSteps);
         } else if (id == R.id.nav_log_out) {
             Intent intentBackLogin = new Intent(ProfileActivity.this, LoginActivity.class);
             finish();

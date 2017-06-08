@@ -47,12 +47,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.equals("ricardo@example.com");
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.equals("123456");
     }
     private void attemptLogin() {
         // Reset errors.
@@ -86,11 +86,13 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
+        focusView.requestFocus();
+
+        login(cancel);
+    }
+
+    private void login(boolean cancel) {
+        if (!cancel) {
             //Operation Successful
             Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
             finish();

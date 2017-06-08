@@ -89,15 +89,18 @@ public class RegisterActivity extends AppCompatActivity {
             focusView = this.email;
             cancel = true;
         }
+        focusView.requestFocus();
+        register(cancel);
+    }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
+    private void register(boolean cancel) {
+        if (!cancel) {
             //Operation Successful
             //TODO save register in database
             //TODO go for another activity when implemented
+            Intent intentGoSteps = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+            finish();
+            startActivity(intentGoSteps);
         }
     }
 }
