@@ -38,4 +38,7 @@
     <string name="text_period_subjects">Atualize os status das cadeiras abaixo</string>
     <string name="text_locking_ask">Você já trancou o curso?</string>
     <string name="text_required_complement_ask">Você cursou alguma outra cadeira obrigatória?</string>
+    <string name="text_optional_ask">Você já cursou alguma cadeira optativa?</string>
+    <string name="text_exclude_optional_subject">Existe alguma optativa que você não deseja cursar?</string>
+    <string name="text_finalize_ask">É isso mesmo?</string>
 </resources>
