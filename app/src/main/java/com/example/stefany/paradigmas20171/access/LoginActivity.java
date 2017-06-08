@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171;
+package com.example.stefany.paradigmas20171.access;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,57 +8,54 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class RegisterActivity extends AppCompatActivity {
+import com.example.stefany.paradigmas20171.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     private EditText password;
     private AutoCompleteTextView email;
+    private Button btnLogin;
     private Button btnRegister;
+    private Button btnContinue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
 
         email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
+        btnLogin = (Button) findViewById(R.id.sign_in_button);
         btnRegister = (Button) findViewById(R.id.sign_up_button);
+        btnContinue = (Button) findViewById(R.id.continue_button);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptRegister();
+                attemptLogin();
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGoProcessStepsActivity = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+                Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
                 finish();
-                startActivity(intentGoProcessStepsActivity);
+                startActivity(intentGoRegister);
             }
         });
 
     }
-
-    @Override
-    public void onBackPressed() {
-        Intent intentBackLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-        finish();
-        startActivity(intentBackLogin);
-    }
-
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.equals("ricardo@example.com");
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.equals("123456");
     }
-    private void attemptRegister() {
+    private void attemptLogin() {
         // Reset errors.
         this.email.setError(null);
         this.password.setError(null);
@@ -89,18 +86,18 @@ public class RegisterActivity extends AppCompatActivity {
             focusView = this.email;
             cancel = true;
         }
+
         focusView.requestFocus();
-        register(cancel);
+
+        login(cancel);
     }
 
-    private void register(boolean cancel) {
+    private void login(boolean cancel) {
         if (!cancel) {
             //Operation Successful
-            //TODO save register in database
-            //TODO go for another activity when implemented
-            Intent intentGoSteps = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+            Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
             finish();
-            startActivity(intentGoSteps);
+            startActivity(intentGoProfile);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171;
+package com.example.stefany.paradigmas20171.steps;
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.stefany.paradigmas20171.R;
 
 public class ProcessStepsActivity extends AppCompatActivity {
 
@@ -59,7 +61,6 @@ public class ProcessStepsActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_process_steps, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }

@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171;
+package com.example.stefany.paradigmas20171.steps;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,15 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.stefany.paradigmas20171.R;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentStepReviwAsk.OnFragmentInteractionListener} interface
+ * {@link FragmentStepReviewAsk.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentStepReviwAsk#newInstance} factory method to
+ * Use the {@link FragmentStepReviewAsk#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentStepReviwAsk extends Fragment {
+public class FragmentStepReviewAsk extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +31,7 @@ public class FragmentStepReviwAsk extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentStepReviwAsk() {
+    public FragmentStepReviewAsk() {
         // Required empty public constructor
     }
 
@@ -39,11 +41,11 @@ public class FragmentStepReviwAsk extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentStepReviwAsk.
+     * @return A new instance of fragment FragmentStepReviewAsk.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentStepReviwAsk newInstance(String param1, String param2) {
-        FragmentStepReviwAsk fragment = new FragmentStepReviwAsk();
+    public static FragmentStepReviewAsk newInstance(String param1, String param2) {
+        FragmentStepReviewAsk fragment = new FragmentStepReviewAsk();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
