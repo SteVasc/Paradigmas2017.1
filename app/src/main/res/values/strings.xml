@@ -35,4 +35,7 @@
     <string name="text_button_yes">Sim</string>
     <string name="text_button_no">Não</string>
     <string name="text_locking_period">Quantos períodos o curso passou trancado?</string>
+    <string name="text_period_subjects">Atualize os status das cadeiras abaixo</string>
+    <string name="text_locking_ask">Você já trancou o curso?</string>
+    <string name="text_required_complement_ask">Você cursou alguma outra cadeira obrigatória?</string>
 </resources>
