@@ -14,9 +14,11 @@
     <string name="error_invalid_password">Senha inválida</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <string name="text_steps_first_access">Estamos aqui para ajudá-lo a formar seu cronograma de aulas =)\nPara isso iremos guiá-lo por um passo a passo, OK?</string>
+    <string name="text_period_select">Em que período você ingressou no curso?</string>
+
     <string name="title_activity_profile">ProfileActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -27,4 +29,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="em_que_periodo_voc_ingressou_no_curso">Em que periodo você ingressou no curso?</string>
+    <string name="text_first_entry">Primeira entrada</string>
+    <string name="text_second_entry">Segunda entrada</string>
+    <string name="text_button_continue">Continuar</string>
+    <string name="text_button_exit">Sair</string>
 </resources>
