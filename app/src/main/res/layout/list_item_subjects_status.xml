@@ -3,23 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:layout_marginTop="18dp"
         android:id="@+id/text_subject_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome da cadeira"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/text_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status"
-        android:textSize="8sp"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/text_subject_name"/>
     <Spinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="8sp"
         android:layout_alignBottom="@+id/text_status"
         android:layout_below="@+id/text_subject_name"
-        android:layout_toEndOf="@+id/text_status"></Spinner>
+        android:layout_toEndOf="@+id/text_status"
+        android:layout_marginTop="10dp"></Spinner>
 
 </RelativeLayout>

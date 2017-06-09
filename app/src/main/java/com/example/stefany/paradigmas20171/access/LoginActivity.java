@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.infrastructure.Session;
 import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
 
 public class LoginActivity extends AppCompatActivity {

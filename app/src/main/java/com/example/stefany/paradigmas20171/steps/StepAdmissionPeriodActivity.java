@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.access.LoginActivity;
 import com.example.stefany.paradigmas20171.access.ProfileActivity;
-import com.example.stefany.paradigmas20171.access.Session;
+import com.example.stefany.paradigmas20171.infrastructure.Session;
 
 public class StepAdmissionPeriodActivity extends AppCompatActivity {
 
