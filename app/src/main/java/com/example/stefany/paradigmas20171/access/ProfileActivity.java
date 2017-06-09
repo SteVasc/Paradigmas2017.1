@@ -11,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.stefany.paradigmas20171.steps.ProcessStepsActivity;
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
 
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity
             //TODO go to result activity
         } else if (id == R.id.nav_calculate) {
             //TODO check first access state
-            Intent intentGoSteps = new Intent(ProfileActivity.this, ProcessStepsActivity.class);
+            Intent intentGoSteps = new Intent(ProfileActivity.this, StepFirstAccessActivity.class);
             finish();
             startActivity(intentGoSteps);
         } else if (id == R.id.nav_log_out) {

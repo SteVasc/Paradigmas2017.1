@@ -9,8 +9,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.stefany.paradigmas20171.steps.ProcessStepsActivity;
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGoProcessStepsActivity = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+                Intent intentGoProcessStepsActivity = new Intent(RegisterActivity.this, StepFirstAccessActivity.class);
                 finish();
                 startActivity(intentGoProcessStepsActivity);
             }
@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
             //Operation Successful
             //TODO save register in database
             //TODO go for another activity when implemented
-            Intent intentGoSteps = new Intent(RegisterActivity.this, ProcessStepsActivity.class);
+            Intent intentGoSteps = new Intent(RegisterActivity.this, StepFirstAccessActivity.class);
             finish();
             startActivity(intentGoSteps);
         }

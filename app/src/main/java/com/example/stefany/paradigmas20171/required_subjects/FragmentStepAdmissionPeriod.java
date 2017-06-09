@@ -11,14 +11,7 @@ import android.widget.TextView;
 
 import com.example.stefany.paradigmas20171.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentStepAdmissionPeriod.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentStepAdmissionPeriod#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentStepAdmissionPeriod extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
