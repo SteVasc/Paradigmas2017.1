@@ -26,6 +26,20 @@
             android:name=".access.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".steps.optional_subjects.StepExcludedOptionalAskActivity"/>
+        <activity android:name=".steps.optional_subjects.StepExcludedOptionalSelectActivity"/>
+        <activity android:name=".steps.optional_subjects.StepOptionalSelectActivity"/>
+        <activity android:name=".steps.optional_subjects.StepOptionalStartActivity"/>
+        <activity android:name=".steps.required_subjects.StepPeriodSubjectsActivity"/>
+        <activity android:name=".steps.required_subjects.StepRequiredComplementAskActivity"/>
+        <activity android:name=".steps.required_subjects.StepRequiredComplementSelectActivity"/>
+        <activity android:name=".steps.StepAdmissionPeriodActivity"/>
+        <activity android:name=".steps.StepFirstAccessActivity"/>
+        <activity android:name=".steps.StepLockingAskActivity"/>
+        <activity android:name=".steps.StepLockingTimeActivity"/>
+        <activity android:name=".steps.StepFinalizeAskActivity"/>
+        <activity android:name=".steps.StepReviewAskActivity"/>
+
     </application>
 
 </manifest>

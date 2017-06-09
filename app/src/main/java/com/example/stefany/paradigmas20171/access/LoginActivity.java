@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
                 finish();
                 startActivity(intentGoRegister);
+            }
+        });
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Session.setLogged(false);
+                Intent intentFirstAccess = new Intent(LoginActivity.this, StepFirstAccessActivity.class);
+                startActivity(intentFirstAccess);
             }
         });
 
@@ -95,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     private void login(boolean cancel) {
         if (!cancel) {
             //Operation Successful
+            Session.setLogged(true);
             Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
             finish();
             startActivity(intentGoProfile);
