@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.optional_subjects;
+package com.example.stefany.paradigmas20171.steps.optional_subjects;
 
 import android.content.Context;
 import android.net.Uri;
