@@ -59,9 +59,12 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
                 if (Session.isLogged()){
                     Intent intentBackProfile = new Intent(StepPeriodSubjectsActivity.this, ProfileActivity.class);
                     startActivity(intentBackProfile);
+                    finish();
+
                 } else {
                     Intent intentBackLogin = new Intent(StepPeriodSubjectsActivity.this, LoginActivity.class);
                     startActivity(intentBackLogin);
+                    finish();
                 }
             }
         });

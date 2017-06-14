@@ -27,6 +27,8 @@ public class StepFirstAccessActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentGoAdmissionTime = new Intent(StepFirstAccessActivity.this, StepAdmissionPeriodActivity.class);
                 startActivity(intentGoAdmissionTime);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -35,9 +37,11 @@ public class StepFirstAccessActivity extends AppCompatActivity {
                 if (Session.isLogged()){
                     Intent intentBackProfile = new Intent(StepFirstAccessActivity.this, ProfileActivity.class);
                     startActivity(intentBackProfile);
+                    finish();
                 } else {
                     Intent intentBackLogin = new Intent(StepFirstAccessActivity.this, LoginActivity.class);
                     startActivity(intentBackLogin);
+                    finish();
                 }
             }
         });

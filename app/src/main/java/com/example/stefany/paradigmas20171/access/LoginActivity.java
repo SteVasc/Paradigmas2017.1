@@ -42,8 +42,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
-                finish();
                 startActivity(intentGoRegister);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         btnContinue.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                 Session.setLogged(false);
                 Intent intentFirstAccess = new Intent(LoginActivity.this, StepFirstAccessActivity.class);
                 startActivity(intentFirstAccess);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
 
@@ -96,9 +99,9 @@ public class LoginActivity extends AppCompatActivity {
             focusView = this.email;
             cancel = true;
         }
-
-        focusView.requestFocus();
-
+        if (focusView != null) {
+            focusView.requestFocus();
+        }
         login(cancel);
     }
 
@@ -107,8 +110,9 @@ public class LoginActivity extends AppCompatActivity {
             //Operation Successful
             Session.setLogged(true);
             Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
-            finish();
             startActivity(intentGoProfile);
+            finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         }
     }
 }

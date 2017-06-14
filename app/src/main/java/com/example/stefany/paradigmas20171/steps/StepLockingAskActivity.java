@@ -26,6 +26,8 @@ public class StepLockingAskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentGoLockingTime = new Intent(StepLockingAskActivity.this, StepLockingTimeActivity.class);
                 startActivity(intentGoLockingTime);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         btnNo.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +35,8 @@ public class StepLockingAskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentGoSubjects = new Intent(StepLockingAskActivity.this, StepPeriodSubjectsActivity.class);
                 startActivity(intentGoSubjects);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }

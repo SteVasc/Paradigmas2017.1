@@ -35,6 +35,8 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
                 Session.setPeriods(admissionYear, true);
                 Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
                 startActivity(intentContinue);
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
         buttonExit.setOnClickListener(new View.OnClickListener() {
@@ -43,9 +45,11 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
                 if (Session.isLogged()){
                     Intent intentBackProfile = new Intent(StepAdmissionPeriodActivity.this, ProfileActivity.class);
                     startActivity(intentBackProfile);
+                    finish();
                 } else {
                     Intent intentBackLogin = new Intent(StepAdmissionPeriodActivity.this, LoginActivity.class);
                     startActivity(intentBackLogin);
+                    finish();
                 }
             }
         });

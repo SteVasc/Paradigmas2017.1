@@ -83,7 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
             focusView = this.email;
             cancel = true;
         }
-        focusView.requestFocus();
+        if (focusView != null) {
+            focusView.requestFocus();
+        }
         register(cancel);
     }
 

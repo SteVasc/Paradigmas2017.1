@@ -81,6 +81,7 @@ public class ProfileActivity extends AppCompatActivity
             Intent intentGoSteps = new Intent(ProfileActivity.this, StepFirstAccessActivity.class);
             finish();
             startActivity(intentGoSteps);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_log_out) {
             Intent intentBackLogin = new Intent(ProfileActivity.this, LoginActivity.class);
             finish();
