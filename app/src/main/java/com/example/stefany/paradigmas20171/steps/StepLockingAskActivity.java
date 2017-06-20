@@ -33,6 +33,7 @@ public class StepLockingAskActivity extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                StepPeriodSubjectsActivity.setPeriodNumber(1);
                 Intent intentGoSubjects = new Intent(StepLockingAskActivity.this, StepPeriodSubjectsActivity.class);
                 startActivity(intentGoSubjects);
                 finish();

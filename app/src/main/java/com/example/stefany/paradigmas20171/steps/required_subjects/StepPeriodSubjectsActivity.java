@@ -31,6 +31,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
 
     private static ArrayList<Subject> subjects;
     private static int numberOfScreens;
+    private static Integer periodNumber;
     private ListView listView;
     private Button btnContinue;
     private Button btnExit;
@@ -44,13 +45,27 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnContinue = (Button) findViewById(R.id.button_affirmative);
         btnExit = (Button) findViewById(R.id.button_negative);
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
+        textPeriodNumber.setText("Periodo: " + periodNumber.toString());
         testSubjects();
         populateList();
+
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO implement repetition of screens
-                Toast.makeText(StepPeriodSubjectsActivity.this, "To Implement", Toast.LENGTH_SHORT).show();
+                //Hardcoded Test
+                if (periodNumber < numberOfScreens){
+                    StepPeriodSubjectsActivity.setSubjects(testScreenPassing());
+                    StepPeriodSubjectsActivity.setPeriodNumber(periodNumber+1);
+                    Intent intentRepeat = new Intent(StepPeriodSubjectsActivity.this, StepPeriodSubjectsActivity.class);
+                    finish();
+                    startActivity(intentRepeat);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                } else {
+                    Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepRequiredComplementAskActivity.class);
+                    finish();
+                    startActivity(intentForward);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                }
             }
         });
         btnExit.setOnClickListener(new View.OnClickListener() {
@@ -106,25 +121,50 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
     }
 
     private void testSubjects(){
+        ArrayList<Subject> subjects1 = new ArrayList();
         Subject subject = new Subject();
         subject.setDescription("Introdução à programação");
         Subject subject1 = new Subject();
-        subject.setDescription("Matemática Discreta");
+        subject1.setDescription("Matemática Discreta");
         Subject subject2 = new Subject();
-        subject.setDescription("Cálculo a uma variaável");
+        subject2.setDescription("Cálculo a uma variaável");
         Subject subject3 = new Subject();
-        subject.setDescription("Teoria geral da administração");
+        subject3.setDescription("Teoria geral da administração");
         Subject subject4 = new Subject();
-        subject.setDescription("Laboratório de Informática");
-        subjects = new ArrayList<>();
-        subjects.add(subject);
-        subjects.add(subject1);
-        subjects.add(subject2);
-        subjects.add(subject3);
-        subjects.add(subject4);
+        subject4.setDescription("Laboratório de Informática");
+        subjects1.add(subject);
+        subjects1.add(subject1);
+        subjects1.add(subject2);
+        subjects1.add(subject3);
+        subjects1.add(subject4);
+        setSubjects(subjects1);
+        setNumberOfScreens(2);
+    }
+    private ArrayList<Subject> testScreenPassing(){
+        ArrayList<Subject> subjects1 = new ArrayList();
+        Subject subject = new Subject();
+        subject.setDescription("Introdução à Teoria da Computação");
+        Subject subject1 = new Subject();
+        subject1.setDescription("Algoritmo e estrutura de dados");
+        Subject subject2 = new Subject();
+        subject2.setDescription("Cálculo a várias variáveis");
+        Subject subject3 = new Subject();
+        subject3.setDescription("Fundamentos de Sistemas de Informação");
+        Subject subject4 = new Subject();
+        subject4.setDescription("Laboratório de Programação");
+        subjects1.add(subject);
+        subjects1.add(subject1);
+        subjects1.add(subject2);
+        subjects1.add(subject3);
+        subjects1.add(subject4);
+        return subjects1;
     }
 
     public static void setNumberOfScreens(int numberOfScreens) {
         StepPeriodSubjectsActivity.numberOfScreens = numberOfScreens;
+    }
+
+    public static void setPeriodNumber(Integer periodNumber) {
+        StepPeriodSubjectsActivity.periodNumber = periodNumber;
     }
 }

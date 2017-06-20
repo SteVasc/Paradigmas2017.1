@@ -35,6 +35,7 @@ public class StepLockingTimeActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                StepPeriodSubjectsActivity.setPeriodNumber(1);
                 Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepPeriodSubjectsActivity.class);
                 startActivity(intentGoLockingTime);
                 finish();
