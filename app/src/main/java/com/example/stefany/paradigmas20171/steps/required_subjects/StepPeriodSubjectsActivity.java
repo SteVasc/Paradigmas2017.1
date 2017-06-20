@@ -101,46 +101,21 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
             subjectName.setText(subject.getDescription());
             Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
             spinner.setAdapter(new ArrayAdapter(StepPeriodSubjectsActivity.this, R.layout.support_simple_spinner_dropdown_item, status));
-           /* spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int positionSelected, long id) {
-                    switch (positionSelected){
-                        case 0:
-                            subject.setStatus(SubjectStatus.NOT_ATTENDED);
-                            break;
-                        case 1:
-                            subject.setStatus(SubjectStatus.APPROVED);
-                            break;
-                        case 2:
-                            subject.setStatus(SubjectStatus.DISAPPROVED);
-                            break;
-                        case 3:
-                            subject.setStatus(SubjectStatus.STUDYING);
-                            break;
-
-                    }
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                    subject.setStatus(SubjectStatus.NOT_ATTENDED);
-                }
-            });*/
-
             return view;
         }
     }
 
     private void testSubjects(){
         Subject subject = new Subject();
-        subject.setDescription("Subject 1");
+        subject.setDescription("Introdução à programação");
         Subject subject1 = new Subject();
-        subject.setDescription("Subject 2");
+        subject.setDescription("Matemática Discreta");
         Subject subject2 = new Subject();
-        subject.setDescription("Subject 3");
+        subject.setDescription("Cálculo a uma variaável");
         Subject subject3 = new Subject();
-        subject.setDescription("Subject 4");
+        subject.setDescription("Teoria geral da administração");
         Subject subject4 = new Subject();
-        subject.setDescription("Subject 5");
+        subject.setDescription("Laboratório de Informática");
         subjects = new ArrayList<>();
         subjects.add(subject);
         subjects.add(subject1);
