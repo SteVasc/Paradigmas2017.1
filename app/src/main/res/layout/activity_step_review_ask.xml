@@ -8,16 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Revisar Obrigatórias"
-        style="style/but"/>
+        android:background="@drawable/button_shape"
+        android:layout_marginTop="10dp"/>
     <Button
         android:id="@+id/button_optional_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_shape"
         android:text="Revisar Optativas"/>
+
     <Button
         android:id="@+id/button_back_to_begin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar ao início"/>
+        android:background="@drawable/button_shape"
+        android:text="Voltar ao início"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

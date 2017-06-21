@@ -93,16 +93,20 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
     public void changeListItemColor(int position, int colorNumber){
         switch (colorNumber){
             case 0:
-                this.listView.getChildAt(position).setBackgroundColor(Color.GRAY);
+                //Gray color
+                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#6f7279"));
                 break;
             case 1:
-                this.listView.getChildAt(position).setBackgroundColor(Color.GREEN);
+                //Green color
+                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#66cc33"));
                 break;
             case 2:
-                this.listView.getChildAt(position).setBackgroundColor(Color.RED);
+                //Red color
+                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#df5a3e"));
                 break;
             case 3:
-                this.listView.getChildAt(position).setBackgroundColor(Color.YELLOW);
+                //Yellow color
+                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#ffcc00"));
                 break;
         }
     }
@@ -161,7 +165,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         Subject subject1 = new Subject();
         subject1.setDescription("Matemática Discreta");
         Subject subject2 = new Subject();
-        subject2.setDescription("Cálculo a uma variaável");
+        subject2.setDescription("Cálculo a uma variável");
         Subject subject3 = new Subject();
         subject3.setDescription("Teoria geral da administração");
         Subject subject4 = new Subject();
