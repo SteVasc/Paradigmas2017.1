@@ -30,13 +30,18 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int admissionYear = Integer.parseInt(editTextAdmissionYear.getText().toString());
-                //TODO implement logic to compare entries, actually hardcoded
-                Session.setPeriods(admissionYear, true);
-                Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
-                startActivity(intentContinue);
-                finish();
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                try {
+                    //TODO implement logic to compare entries, actually hardcoded
+                    int admissionYear = Integer.parseInt(editTextAdmissionYear.getText().toString());
+                    Session.setPeriods(admissionYear, true);
+                    Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
+                    startActivity(intentContinue);
+                    finish();
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    editTextAdmissionYear.setError("Entrada Inválida");
+                }
             }
         });
         buttonExit.setOnClickListener(new View.OnClickListener() {

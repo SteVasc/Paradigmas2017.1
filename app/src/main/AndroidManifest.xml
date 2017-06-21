@@ -17,11 +17,6 @@
         <activity
             android:name=".access.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".access.RegisterActivity"
@@ -69,6 +64,15 @@
         <activity
             android:name=".steps.StepReviewAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".infrastructure.InitialActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

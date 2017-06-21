@@ -41,4 +41,8 @@
     <string name="text_optional_ask">Você já cursou alguma cadeira optativa?</string>
     <string name="text_exclude_optional_subject">Existe alguma optativa que você não deseja cursar?</string>
     <string name="text_finalize_ask">É isso mesmo?</string>
+
+    <string name="title_activity_initial">InitialActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">Curso.Organize(BSI)</string>
 </resources>

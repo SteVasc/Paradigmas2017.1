@@ -1,6 +1,7 @@
 package com.example.stefany.paradigmas20171.steps.required_subjects;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -89,6 +90,22 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         ArrayAdapter<Subject> adapter = new SubjectListAdapter();
         listView.setAdapter(adapter);
     }
+    public void changeListItemColor(int position, int colorNumber){
+        switch (colorNumber){
+            case 0:
+                this.listView.getChildAt(position).setBackgroundColor(Color.GRAY);
+                break;
+            case 1:
+                this.listView.getChildAt(position).setBackgroundColor(Color.GREEN);
+                break;
+            case 2:
+                this.listView.getChildAt(position).setBackgroundColor(Color.RED);
+                break;
+            case 3:
+                this.listView.getChildAt(position).setBackgroundColor(Color.YELLOW);
+                break;
+        }
+    }
 
     public static void setSubjects(ArrayList<Subject> subjects) {
         StepPeriodSubjectsActivity.subjects = subjects;
@@ -103,19 +120,36 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View view, @NonNull ViewGroup parent) {
             if (view == null){
                 view = getLayoutInflater().inflate(R.layout.list_item_subjects_status, parent, false);
             }
-            Subject subject = subjects.get(position);
-            final String[] status = new String[]{SubjectStatus.NOT_ATTENDED.getDescription(),
+            final Subject subject = subjects.get(position);
+            final SubjectStatus[] status = new SubjectStatus[]{SubjectStatus.NOT_ATTENDED,
+                    SubjectStatus.APPROVED,
+                    SubjectStatus.DISAPPROVED,
+                    SubjectStatus.STUDYING};
+            final String[] statusStrings = new String[]{SubjectStatus.NOT_ATTENDED.getDescription(),
                                             SubjectStatus.APPROVED.getDescription(),
                                             SubjectStatus.DISAPPROVED.getDescription(),
                                             SubjectStatus.STUDYING.getDescription()};
             TextView subjectName = (TextView) view.findViewById(R.id.text_subject_name);
             subjectName.setText(subject.getDescription());
             Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
-            spinner.setAdapter(new ArrayAdapter(StepPeriodSubjectsActivity.this, R.layout.support_simple_spinner_dropdown_item, status));
+            spinner.setAdapter(new ArrayAdapter(StepPeriodSubjectsActivity.this, R.layout.support_simple_spinner_dropdown_item, statusStrings));
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int selected, long l) {
+                    changeListItemColor(position, selected);
+                    subject.setStatus(status[selected]);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    changeListItemColor(position, 3);
+                    subject.setStatus(status[3]);
+                }
+            });
             return view;
         }
     }
