@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.access;
+package com.example.stefany.paradigmas20171.view_control.access;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.infrastructure.Session;
+import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 
 public class InitialActivity extends AppCompatActivity {
 

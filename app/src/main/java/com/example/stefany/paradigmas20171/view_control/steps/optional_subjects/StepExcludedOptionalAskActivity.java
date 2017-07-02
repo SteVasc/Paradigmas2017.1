@@ -1,18 +1,13 @@
-package com.example.stefany.paradigmas20171.steps;
+package com.example.stefany.paradigmas20171.view_control.steps.optional_subjects;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
 import com.example.stefany.paradigmas20171.R;
 
-/**
- * Created by laser info on 08/06/2017.
- */
-
-public class StepFinalizeAskActivity extends AppCompatActivity {
+public class StepExcludedOptionalAskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_finalize_ask);
+        setContentView(R.layout.activity_step_excluded_optional_ask);
     }
 }

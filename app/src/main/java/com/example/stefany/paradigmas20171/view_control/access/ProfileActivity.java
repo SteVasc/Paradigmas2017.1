@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.access;
+package com.example.stefany.paradigmas20171.view_control.access;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.steps;
+package com.example.stefany.paradigmas20171.view_control.steps;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.steps.required_subjects.StepPeriodSubjectsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
 
 public class StepLockingAskActivity extends AppCompatActivity {
 

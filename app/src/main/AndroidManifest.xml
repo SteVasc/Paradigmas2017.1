@@ -15,57 +15,57 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".access.LoginActivity"
+            android:name=".view_control.access.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".access.RegisterActivity"
+            android:name=".view_control.access.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".access.ProfileActivity"
+            android:name=".view_control.access.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.optional_subjects.StepExcludedOptionalAskActivity"
+            android:name=".view_control.steps.optional_subjects.StepExcludedOptionalAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.optional_subjects.StepExcludedOptionalSelectActivity"
+            android:name=".view_control.steps.optional_subjects.StepExcludedOptionalSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.optional_subjects.StepOptionalSelectActivity"
+            android:name=".view_control.steps.optional_subjects.StepOptionalSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.optional_subjects.StepOptionalStartActivity"
+            android:name=".view_control.steps.optional_subjects.StepOptionalStartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.required_subjects.StepPeriodSubjectsActivity"
+            android:name=".view_control.steps.required_subjects.StepPeriodSubjectsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.required_subjects.StepRequiredComplementAskActivity"
+            android:name=".view_control.steps.required_subjects.StepRequiredComplementAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.required_subjects.StepRequiredComplementSelectActivity"
+            android:name=".view_control.steps.required_subjects.StepRequiredComplementSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepAdmissionPeriodActivity"
+            android:name=".view_control.steps.StepAdmissionPeriodActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepFirstAccessActivity"
+            android:name=".view_control.steps.StepFirstAccessActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepLockingAskActivity"
+            android:name=".view_control.steps.StepLockingAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepLockingTimeActivity"
+            android:name=".view_control.steps.StepLockingTimeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepFinalizeAskActivity"
+            android:name=".view_control.steps.StepFinalizeAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".steps.StepReviewAskActivity"
+            android:name=".view_control.steps.StepReviewAskActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".access.InitialActivity"
+            android:name=".view_control.access.InitialActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.steps.required_subjects;
+package com.example.stefany.paradigmas20171.view_control.steps.required_subjects;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,25 +6,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.access.LoginActivity;
-import com.example.stefany.paradigmas20171.access.ProfileActivity;
-import com.example.stefany.paradigmas20171.infrastructure.Session;
-import com.example.stefany.paradigmas20171.infrastructure.Subject;
-import com.example.stefany.paradigmas20171.infrastructure.SubjectStatus;
-import com.example.stefany.paradigmas20171.steps.StepAdmissionPeriodActivity;
+import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
+import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.model.infrastructure.Session;
+import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
+import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 
 import java.util.ArrayList;
 

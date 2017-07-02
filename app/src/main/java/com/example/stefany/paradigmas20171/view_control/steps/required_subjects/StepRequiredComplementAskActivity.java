@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.steps.required_subjects;
+package com.example.stefany.paradigmas20171.view_control.steps.required_subjects;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -1,76 +1,58 @@
-package com.example.stefany.paradigmas20171.access;
+package com.example.stefany.paradigmas20171.view_control.access;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.infrastructure.Session;
-import com.example.stefany.paradigmas20171.steps.StepFirstAccessActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText password;
-    private EditText email;
-    private FloatingActionButton btnLogin;
-    private FloatingActionButton btnRegister;
-    private Button btnContinue;
+    private AutoCompleteTextView email;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
-        email = (EditText) findViewById(R.id.email);
+        email = (AutoCompleteTextView) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
-        btnLogin = (FloatingActionButton) findViewById(R.id.fab_sign_in);
-        btnRegister = (FloatingActionButton) findViewById(R.id.fab_sign_up);
-        btnContinue = (Button) findViewById(R.id.continue_button);
+        btnRegister = (Button) findViewById(R.id.sign_up_button);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intentGoRegister);
-                finish();
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Session.setLogged(false);
-                Intent intentFirstAccess = new Intent(LoginActivity.this, StepFirstAccessActivity.class);
-                startActivity(intentFirstAccess);
-                finish();
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                attemptRegister();
             }
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intentBackLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+        finish();
+        startActivity(intentBackLogin);
+    }
+
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.equals("ricardo@example.com");
+        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.equals("123456");
+        return password.length() > 4;
     }
-    private void attemptLogin() {
+    private void attemptRegister() {
         // Reset errors.
         this.email.setError(null);
         this.password.setError(null);
@@ -104,17 +86,17 @@ public class LoginActivity extends AppCompatActivity {
         if (focusView != null) {
             focusView.requestFocus();
         }
-        login(cancel);
+        register(cancel);
     }
 
-    private void login(boolean cancel) {
+    private void register(boolean cancel) {
         if (!cancel) {
             //Operation Successful
-            Session.setLogged(true);
-            Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
-            startActivity(intentGoProfile);
+            //TODO save register in database
+            //TODO go for another activity when implemented
+            Intent intentGoSteps = new Intent(RegisterActivity.this, StepFirstAccessActivity.class);
             finish();
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            startActivity(intentGoSteps);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.steps;
+package com.example.stefany.paradigmas20171.view_control.steps;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.access.LoginActivity;
-import com.example.stefany.paradigmas20171.access.ProfileActivity;
-import com.example.stefany.paradigmas20171.infrastructure.Session;
+import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
+import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 
 public class StepAdmissionPeriodActivity extends AppCompatActivity {
 

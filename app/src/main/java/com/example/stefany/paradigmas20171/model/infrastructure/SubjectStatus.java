@@ -1,4 +1,4 @@
-package com.example.stefany.paradigmas20171.infrastructure;
+package com.example.stefany.paradigmas20171.model.infrastructure;
 
 
 public enum SubjectStatus {
