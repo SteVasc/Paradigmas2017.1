@@ -4,7 +4,9 @@
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/text_label"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:text="@string/text_period_subjects"
         android:textSize="26sp"
@@ -15,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Período: X"
         android:textSize="26sp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/text_label"/>
     <ListView

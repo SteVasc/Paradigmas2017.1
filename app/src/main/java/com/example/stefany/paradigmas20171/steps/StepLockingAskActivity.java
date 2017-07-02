@@ -35,6 +35,7 @@ public class StepLockingAskActivity extends AppCompatActivity {
             public void onClick(View view) {
                 StepPeriodSubjectsActivity.setPeriodNumber(1);
                 Intent intentGoSubjects = new Intent(StepLockingAskActivity.this, StepPeriodSubjectsActivity.class);
+                StepPeriodSubjectsActivity.testSubjects();
                 startActivity(intentGoSubjects);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

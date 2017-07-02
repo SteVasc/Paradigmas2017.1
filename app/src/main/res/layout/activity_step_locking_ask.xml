@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text_locking_ask"
         android:textSize="26sp"
+        android:fontFamily="sans-serif-condensed"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_centerVertical="true"/>

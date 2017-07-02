@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -29,14 +28,15 @@ public class StepLockingTimeActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.button_negative);
         spinner = (Spinner) findViewById(R.id.spinner);
 
-        String[] spinnerValues = new String[]{"1", "2", "3", "4"};
-        spinner.setAdapter(new ArrayAdapter(StepLockingTimeActivity.this, R.layout.support_simple_spinner_dropdown_item, spinnerValues));
-
+        String[] spinnerValues = new String[]{"1 Período", "2 Períodos", "3 Períodos", "4 Períodos"};
+        spinner.setAdapter(new ArrayAdapter(StepLockingTimeActivity.this, R.layout.spinner_item, spinnerValues));
+        spinner.setSelection(0);
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StepPeriodSubjectsActivity.setPeriodNumber(1);
                 Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepPeriodSubjectsActivity.class);
+                StepPeriodSubjectsActivity.testSubjects();
                 startActivity(intentGoLockingTime);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

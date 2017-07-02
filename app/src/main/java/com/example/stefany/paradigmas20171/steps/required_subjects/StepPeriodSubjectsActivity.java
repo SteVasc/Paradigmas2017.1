@@ -47,7 +47,6 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.button_negative);
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
-        testSubjects();
         populateList();
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +157,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         }
     }
 
-    private void testSubjects(){
+    public static void testSubjects(){
         ArrayList<Subject> subjects1 = new ArrayList();
         Subject subject = new Subject();
         subject.setDescription("Introdução à programação");
