@@ -1,19 +1,23 @@
 package com.example.stefany.paradigmas20171.model.infrastructure;
 
 
+import android.content.Context;
+
 import java.util.Calendar;
 
 public class Session {
     private static boolean logged;
     private static int periods;
+    private static Context context;
+    private static int currentEntry = 1;
 
-    public static void setPeriods(int admissionYear, boolean sameEntry) {
+    public static void setPeriods(int admissionYear, int entry) {
         int actualYear = Calendar.getInstance().get(Calendar.YEAR);
         int years = actualYear - admissionYear;
-        if (sameEntry){
+        if (currentEntry == entry){
             periods = years*2;
-        } else {
-            //TODO implement logic of entries difference
+        } else if (currentEntry < entry){
+
             periods = years*2;
         }
     }
@@ -27,5 +31,13 @@ public class Session {
 
     public static boolean isLogged() {
         return logged;
+    }
+
+    public static void setContext(Context context) {
+        Session.context = context;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

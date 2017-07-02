@@ -43,14 +43,14 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.button_negative);
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
+        testSubjects();
         populateList();
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Hardcoded Test
-                if (periodNumber < numberOfScreens){
-                    StepPeriodSubjectsActivity.setSubjects(testScreenPassing());
+                if (periodNumber <= numberOfScreens){
                     StepPeriodSubjectsActivity.setPeriodNumber(periodNumber+1);
                     Intent intentRepeat = new Intent(StepPeriodSubjectsActivity.this, StepPeriodSubjectsActivity.class);
                     finish();
@@ -171,7 +171,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         subjects1.add(subject3);
         subjects1.add(subject4);
         setSubjects(subjects1);
-        setNumberOfScreens(2);
+        setNumberOfScreens(Session.getPeriods());
     }
     private ArrayList<Subject> testScreenPassing(){
         ArrayList<Subject> subjects1 = new ArrayList();

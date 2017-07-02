@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
@@ -15,9 +16,10 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 
 public class StepAdmissionPeriodActivity extends AppCompatActivity {
 
-    EditText editTextAdmissionYear;
-    Button buttonContinue;
-    Button buttonExit;
+    private EditText editTextAdmissionYear;
+    private RadioGroup group;
+    private Button buttonContinue;
+    private Button buttonExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,17 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
         editTextAdmissionYear = (EditText) findViewById(R.id.edit_text_year);
         buttonContinue = (Button) findViewById(R.id.button_affirmative);
         buttonExit = (Button) findViewById(R.id.button_negative);
+        group = (RadioGroup) findViewById(R.id.radio_group);
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    //TODO implement logic to compare entries, actually hardcoded
                     int admissionYear = Integer.parseInt(editTextAdmissionYear.getText().toString());
-                    Session.setPeriods(admissionYear, true);
+                    int radioButtonID = group.getCheckedRadioButtonId();
+                    View radioButton = group.findViewById(radioButtonID);
+                    int index = group.indexOfChild(radioButton);
+                    Session.setPeriods(admissionYear, index + 1);
                     Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
                     startActivity(intentContinue);
                     finish();
