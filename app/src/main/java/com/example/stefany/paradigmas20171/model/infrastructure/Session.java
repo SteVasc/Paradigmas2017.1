@@ -9,6 +9,7 @@ public class Session {
     private static boolean logged;
     private static int periods;
     private static Context context;
+    private static SubjectManager subjectManager;
     private static int currentEntry = 1;
 
     public static void setPeriods(int admissionYear, int entry) {
@@ -35,6 +36,14 @@ public class Session {
 
     public static void setContext(Context context) {
         Session.context = context;
+    }
+
+    public static void setSubjectManager(SubjectManager subjectManager) {
+        Session.subjectManager = subjectManager;
+    }
+
+    public static SubjectManager getSubjectManager() {
+        return subjectManager;
     }
 
     public static Context getContext() {

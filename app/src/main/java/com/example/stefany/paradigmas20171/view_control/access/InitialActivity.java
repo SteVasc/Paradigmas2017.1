@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
+import com.example.stefany.paradigmas20171.model.infrastructure.SubjectManager;
 
 public class InitialActivity extends AppCompatActivity {
 
@@ -14,7 +15,9 @@ public class InitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
-        //TODO implement initialization processes
+        Session.setContext(this);
+        Session.setSubjectManager(new SubjectManager());
+        Session.getSubjectManager().addPeriod(1);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
