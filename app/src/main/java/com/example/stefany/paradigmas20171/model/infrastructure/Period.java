@@ -23,6 +23,10 @@ public class Period {
         }
     }
 
+    public ArrayList<Subject> getSubjects() {
+        return subjects;
+    }
+
     public Integer getPeriodNumber() {
         return periodNumber;
     }

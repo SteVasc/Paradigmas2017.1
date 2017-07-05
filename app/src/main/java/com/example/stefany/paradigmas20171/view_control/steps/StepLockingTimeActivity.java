@@ -35,6 +35,8 @@ public class StepLockingTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StepPeriodSubjectsActivity.setPeriodNumber(1);
+                int numberOfPeriodsLocked = spinner.getSelectedItemPosition();
+                Session.adjustPeriods(numberOfPeriodsLocked + 1);
                 Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepPeriodSubjectsActivity.class);
                 StepPeriodSubjectsActivity.testSubjects();
                 startActivity(intentGoLockingTime);

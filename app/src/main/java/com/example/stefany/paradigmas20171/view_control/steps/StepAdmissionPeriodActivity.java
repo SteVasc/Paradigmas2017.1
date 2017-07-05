@@ -13,6 +13,9 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
+
+import java.util.Calendar;
 
 public class StepAdmissionPeriodActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
     private RadioGroup group;
     private Button buttonContinue;
     private Button buttonExit;
+    private boolean lockIsPossible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +34,25 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
         buttonExit = (Button) findViewById(R.id.button_negative);
         group = (RadioGroup) findViewById(R.id.radio_group);
 
+
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     int admissionYear = Integer.parseInt(editTextAdmissionYear.getText().toString());
+                    int actualYear = Calendar.getInstance().get(Calendar.YEAR);
+                    if (admissionYear < (actualYear - 11)){
+                        throw new Exception();
+                    } else if (admissionYear > actualYear){
+                        throw new Exception();
+                    } else if (admissionYear == actualYear){
+                        lockIsPossible = false;
+                    }
                     int radioButtonID = group.getCheckedRadioButtonId();
                     View radioButton = group.findViewById(radioButtonID);
                     int index = group.indexOfChild(radioButton);
                     Session.setPeriods(admissionYear, index + 1);
-                    Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
-                    startActivity(intentContinue);
-                    finish();
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    changeScreen();
                 } catch (Exception e){
                     e.printStackTrace();
                     editTextAdmissionYear.setError("Entrada Inválida");
@@ -64,6 +74,22 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void changeScreen() {
+        if (lockIsPossible) {
+            Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
+            startActivity(intentContinue);
+            finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        } else {
+            StepPeriodSubjectsActivity.setPeriodNumber(1);
+            Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepPeriodSubjectsActivity.class);
+            startActivity(intentContinue);
+            finish();
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        }
+    }
+
     public void onRadioButtonClicked(View view) {
 
         boolean checked = ((RadioButton) view).isChecked();

@@ -18,10 +18,15 @@ public class Session {
         if (currentEntry == entry){
             periods = years*2;
         } else if (currentEntry < entry){
-
-            periods = years*2;
+            periods = (years*2) - 1;
+        } else {
+            periods = (years*2) + 1;
         }
     }
+    public static void adjustPeriods(int numberOfPeriods){
+        periods = periods - numberOfPeriods;
+    }
+
     public static int getPeriods() {
         return periods;
     }

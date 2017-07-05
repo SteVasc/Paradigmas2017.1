@@ -43,13 +43,13 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.button_negative);
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
-        testSubjects();
+        numberOfScreens = Session.getPeriods();
+        subjects = Session.getSubjectManager().getPeriod(periodNumber).getSubjects();
         populateList();
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Hardcoded Test
                 if (periodNumber <= numberOfScreens){
                     StepPeriodSubjectsActivity.setPeriodNumber(periodNumber+1);
                     Intent intentRepeat = new Intent(StepPeriodSubjectsActivity.this, StepPeriodSubjectsActivity.class);
