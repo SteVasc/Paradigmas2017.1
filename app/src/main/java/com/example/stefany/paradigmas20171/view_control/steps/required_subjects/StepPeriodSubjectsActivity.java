@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.model.infrastructure.Period;
+import com.example.stefany.paradigmas20171.model.infrastructure.SubjectManager;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
@@ -44,8 +46,16 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
         numberOfScreens = Session.getPeriods();
-        subjects = Session.getSubjectManager().getPeriod(periodNumber).getSubjects();
+        getSubjectsbyPeriod();
         populateList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Subject subject = subjects.get(i);
+                changeListItemColor(view, subject,(subject.getStatus().getCode()+1)%4);
+            }
+        });
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,29 +91,44 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         });
     }
 
+
     public void populateList(){
         ArrayAdapter<Subject> adapter = new SubjectListAdapter();
         listView.setAdapter(adapter);
     }
-    public void changeListItemColor(int position, int colorNumber){
-        switch (colorNumber){
+    public void changeListItemColor(View view, Subject subject, int code){
+        TextView status = (TextView) view.findViewById(R.id.text_status);
+        switch (code){
             case 0:
                 //Gray color
-                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#6f7279"));
+                view.setBackgroundColor(Color.parseColor("#6f7279"));
+                status.setText("Status: " + "Não cursado");
+                subject.setStatus(SubjectStatus.NOT_ATTENDED);
                 break;
             case 1:
                 //Green color
-                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#66cc33"));
+                view.setBackgroundColor(Color.parseColor("#66cc33"));
+                status.setText("Status: " + "Aprovado");
+                subject.setStatus(SubjectStatus.APPROVED);
                 break;
             case 2:
                 //Red color
-                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#df5a3e"));
+                view.setBackgroundColor(Color.parseColor("#df5a3e"));
+                status.setText("Status: " + "Reprovado");
+                subject.setStatus(SubjectStatus.DISAPPROVED);
                 break;
             case 3:
                 //Yellow color
-                this.listView.getChildAt(position).setBackgroundColor(Color.parseColor("#ffcc00"));
+                view.setBackgroundColor(Color.parseColor("#ffcc00"));
+                status.setText("Status: " + "Cursando");
+                subject.setStatus(SubjectStatus.STUDYING);
                 break;
         }
+    }
+
+    public void getSubjectsbyPeriod(){
+        Period period = Session.getSubjectManager().getPeriod(periodNumber);
+        setSubjects(period.getSubjects());
     }
 
     public static void setSubjects(ArrayList<Subject> subjects) {
@@ -124,7 +149,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
                 view = getLayoutInflater().inflate(R.layout.list_item_subjects_status, parent, false);
             }
             final Subject subject = subjects.get(position);
-            final SubjectStatus[] status = new SubjectStatus[]{SubjectStatus.NOT_ATTENDED,
+            final SubjectStatus[] statusArray = new SubjectStatus[]{SubjectStatus.NOT_ATTENDED,
                     SubjectStatus.APPROVED,
                     SubjectStatus.DISAPPROVED,
                     SubjectStatus.STUDYING};
@@ -134,63 +159,12 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
                                             SubjectStatus.STUDYING.getDescription()};
             TextView subjectName = (TextView) view.findViewById(R.id.text_subject_name);
             subjectName.setText(subject.getDescription());
-            Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
-            spinner.setAdapter(new ArrayAdapter(StepPeriodSubjectsActivity.this, R.layout.support_simple_spinner_dropdown_item, statusStrings));
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int selected, long l) {
-                    changeListItemColor(position, selected);
-                    subject.setStatus(status[selected]);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                    changeListItemColor(position, 3);
-                    subject.setStatus(status[3]);
-                }
-            });
+            TextView subjectStatus = (TextView) view.findViewById(R.id.text_status);
+            SubjectStatus status = subject.getStatus();
+            subjectStatus.setText("Status: " + status.getDescription());
+            changeListItemColor(view, subject,status.getCode());
             return view;
         }
-    }
-
-    public static void testSubjects(){
-        ArrayList<Subject> subjects1 = new ArrayList();
-        Subject subject = new Subject();
-        subject.setDescription("Introdução à programação");
-        Subject subject1 = new Subject();
-        subject1.setDescription("Matemática Discreta");
-        Subject subject2 = new Subject();
-        subject2.setDescription("Cálculo a uma variável");
-        Subject subject3 = new Subject();
-        subject3.setDescription("Teoria geral da administração");
-        Subject subject4 = new Subject();
-        subject4.setDescription("Laboratório de Informática");
-        subjects1.add(subject);
-        subjects1.add(subject1);
-        subjects1.add(subject2);
-        subjects1.add(subject3);
-        subjects1.add(subject4);
-        setSubjects(subjects1);
-        setNumberOfScreens(Session.getPeriods());
-    }
-    private ArrayList<Subject> testScreenPassing(){
-        ArrayList<Subject> subjects1 = new ArrayList();
-        Subject subject = new Subject();
-        subject.setDescription("Introdução à Teoria da Computação");
-        Subject subject1 = new Subject();
-        subject1.setDescription("Algoritmo e estrutura de dados");
-        Subject subject2 = new Subject();
-        subject2.setDescription("Cálculo a várias variáveis");
-        Subject subject3 = new Subject();
-        subject3.setDescription("Fundamentos de Sistemas de Informação");
-        Subject subject4 = new Subject();
-        subject4.setDescription("Laboratório de Programação");
-        subjects1.add(subject);
-        subjects1.add(subject1);
-        subjects1.add(subject2);
-        subjects1.add(subject3);
-        subjects1.add(subject4);
-        return subjects1;
     }
 
     public static void setNumberOfScreens(int numberOfScreens) {

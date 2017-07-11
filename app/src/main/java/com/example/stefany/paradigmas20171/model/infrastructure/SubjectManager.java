@@ -7,17 +7,11 @@ import java.util.ArrayList;
 public class SubjectManager {
 
     private ArrayList<Period> periods = new ArrayList<>();
+    private ArrayList<Subject> updatedSubjecs = new ArrayList<>();
     private SubjectDAO dao;
 
     public SubjectManager(){
         dao = SubjectDAO.getInstace();
-    }
-
-    public void addPeriod(Period period){
-        periods.add(period);
-    }
-    public void addPeriod(int periodNumber){
-        Period period = new Period(periodNumber);
     }
 
     public Period getPeriod(int periodNumber){
@@ -34,7 +28,17 @@ public class SubjectManager {
         return period;
     }
 
-    public void removePeriod(Period period){
-        periods.remove(period);
+    public void updateSubject(Subject subject, SubjectStatus status){
+        Period period = getPeriod(subject.getPeriod());
+        for (Subject s : period.getSubjects()){
+            if (s.getDescription().equals(s.getDescription())){
+                s.setStatus(status);
+                updatedSubjecs.add(s);
+            }
+        }
+    }
+
+    public ArrayList<Subject> getUpdatedSubjecs() {
+        return updatedSubjecs;
     }
 }

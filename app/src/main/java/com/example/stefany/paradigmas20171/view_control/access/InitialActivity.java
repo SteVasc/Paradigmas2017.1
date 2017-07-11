@@ -17,7 +17,6 @@ public class InitialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial);
         Session.setContext(this);
         Session.setSubjectManager(new SubjectManager());
-        Session.getSubjectManager().addPeriod(1);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

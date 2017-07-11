@@ -14,16 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status"
-        android:textSize="12sp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/text_subject_name"/>
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="8sp"
-        android:layout_alignBottom="@+id/text_status"
-        android:layout_below="@+id/text_subject_name"
-        android:layout_toEndOf="@+id/text_status"
-        android:layout_marginTop="10dp"></Spinner>
-
 </RelativeLayout>

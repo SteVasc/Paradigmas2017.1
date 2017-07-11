@@ -6,7 +6,7 @@ public class Subject {
     private int period;
 
     public Subject(){
-        status = SubjectStatus.NOT_ATTENDED;
+        this.status = SubjectStatus.NOT_ATTENDED;
     }
 
     public String getDescription() {

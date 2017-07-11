@@ -38,7 +38,6 @@ public class StepLockingTimeActivity extends AppCompatActivity {
                 int numberOfPeriodsLocked = spinner.getSelectedItemPosition();
                 Session.adjustPeriods(numberOfPeriodsLocked + 1);
                 Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepPeriodSubjectsActivity.class);
-                StepPeriodSubjectsActivity.testSubjects();
                 startActivity(intentGoLockingTime);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

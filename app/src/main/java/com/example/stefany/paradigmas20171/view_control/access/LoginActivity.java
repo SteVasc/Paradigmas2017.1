@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentGoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intentGoRegister);
-                finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                 Session.setLogged(false);
                 Intent intentFirstAccess = new Intent(LoginActivity.this, StepFirstAccessActivity.class);
                 startActivity(intentFirstAccess);
-                finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
@@ -111,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
             Session.setLogged(true);
             Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
             startActivity(intentGoProfile);
-            finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         }
     }

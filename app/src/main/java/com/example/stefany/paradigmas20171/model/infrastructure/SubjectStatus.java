@@ -5,7 +5,7 @@ public enum SubjectStatus {
     APPROVED("Aprovado", 1),
     DISAPPROVED("Reprovado", 2),
     STUDYING("Cursando", 3),
-    NOT_ATTENDED("Não cursado", 4),
+    NOT_ATTENDED("Não cursado", 0),
     TO_ATTEND("Cursar", 5),
     TO_NOT_ATTEND("Não cursar", 6);
 
@@ -14,9 +14,14 @@ public enum SubjectStatus {
 
     SubjectStatus(String description, int code){
         this.description = description;
+        this.code = code;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public int getCode() {
+        return code;
     }
 }
