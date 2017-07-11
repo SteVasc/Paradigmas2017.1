@@ -24,6 +24,7 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalStartActivity;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class StepRequiredComplementSelectActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentRepeat = new Intent(StepRequiredComplementSelectActivity.this, StepPeriodSubjectsActivity.class);
+                Intent intentRepeat = new Intent(StepRequiredComplementSelectActivity.this, StepOptionalStartActivity.class);
                 finish();
                 startActivity(intentRepeat);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
