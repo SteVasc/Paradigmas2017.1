@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
-import com.example.stefany.paradigmas20171.view_control.access.RegisterActivity;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
