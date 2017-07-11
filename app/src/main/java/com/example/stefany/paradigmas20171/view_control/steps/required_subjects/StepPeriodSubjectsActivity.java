@@ -60,6 +60,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateStepState();
                 if (periodNumber <= numberOfScreens){
                     StepPeriodSubjectsActivity.setPeriodNumber(periodNumber+1);
                     Intent intentRepeat = new Intent(StepPeriodSubjectsActivity.this, StepPeriodSubjectsActivity.class);
@@ -89,6 +90,14 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void updateStepState(){
+        for (Subject subject : subjects){
+            if (subject.getStatus() != SubjectStatus.NOT_ATTENDED){
+                Session.getSubjectManager().updateSubject(subject);
+            }
+        }
     }
 
 

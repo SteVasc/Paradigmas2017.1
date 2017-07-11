@@ -1,17 +1,14 @@
 package com.example.stefany.paradigmas20171.model.infrastructure;
 
-import com.example.stefany.paradigmas20171.model.local_database.SubjectDAO;
-
 import java.util.ArrayList;
 
 public class SubjectManager {
 
     private ArrayList<Period> periods = new ArrayList<>();
-    private ArrayList<Subject> updatedSubjecs = new ArrayList<>();
-    private SubjectDAO dao;
+    private ArrayList<Subject> updatedSubjects = new ArrayList<>();
+    private ArrayList<Subject> excludedSubjects = new ArrayList<>();
 
     public SubjectManager(){
-        dao = SubjectDAO.getInstace();
     }
 
     public Period getPeriod(int periodNumber){
@@ -28,17 +25,58 @@ public class SubjectManager {
         return period;
     }
 
-    public void updateSubject(Subject subject, SubjectStatus status){
+    public void updateSubject(Subject subject){
         Period period = getPeriod(subject.getPeriod());
         for (Subject s : period.getSubjects()){
-            if (s.getDescription().equals(s.getDescription())){
-                s.setStatus(status);
-                updatedSubjecs.add(s);
+            if (s.getDescription().equals(subject.getDescription())){
+                if (!checkIfUpdated(s)) {
+                    updatedSubjects.add(s);
+                }
             }
         }
     }
 
-    public ArrayList<Subject> getUpdatedSubjecs() {
-        return updatedSubjecs;
+    private boolean checkIfUpdated(Subject subject){
+        boolean exists = false;
+        for (Subject s : updatedSubjects){
+            if (s.getDescription().equals(subject.getDescription())){
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
+    private boolean checkIfExcluded(Subject subject){
+        boolean exists = false;
+        for (Subject s : excludedSubjects){
+            if (s.getDescription().equals(subject.getDescription())){
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
+    public void excludeSubject(Subject subject){
+        Period period = getPeriod(subject.getPeriod());
+        for (Subject s : period.getSubjects()){
+            if (s.getDescription().equals(subject.getDescription())){
+                if (!checkIfExcluded(s)) {
+                    excludedSubjects.add(s);
+                }
+            }
+        }
+    }
+
+    public void removeFromUpdated(Subject subject){
+        for (Subject s : updatedSubjects){
+            if (s.getDescription().equals(subject.getDescription())){
+                updatedSubjects.remove(s);
+                break;
+            }
+        }
+    }
+
+    public ArrayList<Subject> getUpdatedSubjects() {
+        return updatedSubjects;
     }
 }

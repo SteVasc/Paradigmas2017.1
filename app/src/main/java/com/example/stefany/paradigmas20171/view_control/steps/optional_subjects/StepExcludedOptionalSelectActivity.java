@@ -20,6 +20,7 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepReviewAskActivity;
 
 import java.util.ArrayList;
@@ -59,7 +60,8 @@ public class StepExcludedOptionalSelectActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentRepeat = new Intent(StepExcludedOptionalSelectActivity.this, StepReviewAskActivity.class);
+                updateStepState();
+                Intent intentRepeat = new Intent(StepExcludedOptionalSelectActivity.this, StepFinalizeAskActivity.class);
                 finish();
                 startActivity(intentRepeat);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -114,6 +116,13 @@ public class StepExcludedOptionalSelectActivity extends AppCompatActivity {
                 status.setText("Status: " + "Não cursar");
                 subject.setInclusionStatus(SubjectStatus.TO_NOT_ATTEND);
                 break;
+        }
+    }
+    public void updateStepState(){
+        for (Subject subject : subjects){
+            if (subject.getInclusionStatus() != SubjectStatus.TO_ATTEND){
+                Session.getSubjectManager().excludeSubject(subject);
+            }
         }
     }
     public void getAllSubjects(){

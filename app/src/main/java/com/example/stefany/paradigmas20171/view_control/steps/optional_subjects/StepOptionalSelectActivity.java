@@ -48,13 +48,16 @@ public class StepOptionalSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Subject subject = subjects.get(i);
-                changeListItemColor(view, subject,(subject.getStatus().getCode()+1)%4);
+                int nextCode = subject.getInclusionStatus().getCode() + 1;
+                int codeLooped = ((nextCode) % 4);
+                changeListItemColor(view, subject, codeLooped);
             }
         });
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateStepState();
                 Intent intentRepeat = new Intent(StepOptionalSelectActivity.this, StepExcludedOptionalAskActivity.class);
                 finish();
                 startActivity(intentRepeat);
@@ -94,6 +97,13 @@ public class StepOptionalSelectActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    public void updateStepState(){
+        for (Subject subject : subjects){
+            if (subject.getStatus() != SubjectStatus.NOT_ATTENDED){
+                Session.getSubjectManager().updateSubject(subject);
+            }
+        }
     }
 
     public void changeListItemColor(View view, Subject subject, int code){

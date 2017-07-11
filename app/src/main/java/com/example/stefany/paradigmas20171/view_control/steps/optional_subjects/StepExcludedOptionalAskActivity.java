@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepReviewAskActivity;
 
 public class StepExcludedOptionalAskActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class StepExcludedOptionalAskActivity extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGoSubjects = new Intent(StepExcludedOptionalAskActivity.this, StepReviewAskActivity.class);
+                Intent intentGoSubjects = new Intent(StepExcludedOptionalAskActivity.this, StepFinalizeAskActivity.class);
                 startActivity(intentGoSubjects);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
