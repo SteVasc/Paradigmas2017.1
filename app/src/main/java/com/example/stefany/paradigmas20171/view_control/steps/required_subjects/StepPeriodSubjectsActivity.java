@@ -12,17 +12,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.model.infrastructure.Period;
-import com.example.stefany.paradigmas20171.model.infrastructure.SubjectManager;
+import com.example.stefany.paradigmas20171.model.infrastructure.Semester;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
 
 import java.util.ArrayList;
 
@@ -35,6 +34,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
     private Button btnContinue;
     private Button btnExit;
     private TextView textPeriodNumber;
+    private static boolean review = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +68,17 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
                     startActivity(intentRepeat);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 } else {
-                    Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepRequiredComplementAskActivity.class);
-                    finish();
-                    startActivity(intentForward);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    if (!review) {
+                        Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepRequiredComplementAskActivity.class);
+                        finish();
+                        startActivity(intentForward);
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    } else {
+                        Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepFinalizeAskActivity.class);
+                        finish();
+                        startActivity(intentForward);
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    }
                 }
             }
         });
@@ -100,6 +107,9 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         }
     }
 
+    public static void setReview(boolean review) {
+        StepPeriodSubjectsActivity.review = review;
+    }
 
     public void populateList(){
         ArrayAdapter<Subject> adapter = new SubjectListAdapter();
@@ -136,8 +146,8 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
     }
 
     public void getSubjectsbyPeriod(){
-        Period period = Session.getSubjectManager().getPeriod(periodNumber);
-        setSubjects(period.getSubjects());
+        Semester semester = Session.getSubjectManager().getPeriod(periodNumber);
+        setSubjects(semester.getSubjects());
     }
 
     public static void setSubjects(ArrayList<Subject> subjects) {

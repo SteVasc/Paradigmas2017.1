@@ -20,7 +20,7 @@ public class SubjectDAO extends DAO {
         ArrayList<Subject> subjects = new ArrayList<>();
         open();
         Cursor cursor = getDb().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_SUBJECT +
-                                    " WHERE " + DatabaseHelper.SUBJECT_PERIOD + " = ?",
+                                    " WHERE " + DatabaseHelper.SUBJECT_SEMESTER + " = ?",
                                     new String[]{String.valueOf(period)});
 
         if (cursor.moveToFirst()){
@@ -37,7 +37,7 @@ public class SubjectDAO extends DAO {
         ArrayList<Subject> subjects = new ArrayList<>();
         open();
         Cursor cursor = getDb().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_SUBJECT +
-                        " WHERE " + DatabaseHelper.SUBJECT_PERIOD + " = ?",
+                        " WHERE " + DatabaseHelper.SUBJECT_SEMESTER + " = ?",
                 new String[]{String.valueOf(0)});
 
         if (cursor.moveToFirst()){

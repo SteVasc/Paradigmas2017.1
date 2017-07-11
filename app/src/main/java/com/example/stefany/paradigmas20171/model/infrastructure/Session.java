@@ -7,6 +7,8 @@ import java.util.Calendar;
 
 public class Session {
     private static boolean logged;
+    private static String email;
+    private static String password;
     private static int periods;
     private static Context context;
     private static SubjectManager subjectManager;
@@ -45,6 +47,22 @@ public class Session {
 
     public static void setSubjectManager(SubjectManager subjectManager) {
         Session.subjectManager = subjectManager;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setEmail(String email) {
+        Session.email = email;
+    }
+
+    public static void setPassword(String password) {
+        Session.password = password;
     }
 
     public static SubjectManager getSubjectManager() {

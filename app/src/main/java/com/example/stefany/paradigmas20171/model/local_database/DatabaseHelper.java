@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "organize_app_local_db";
     public static final String TABLE_SUBJECT = "subject_table";
     public static final String SUBJECT_ID = "subject_id";
     public static final String SUBJECT_NAME = "subject_name";
     public static final String SUBJECT_CODE = "subject_code";
-    public static final String SUBJECT_PERIOD = "subject_period";
+    public static final String SUBJECT_SEMESTER = "subject_semester";
 
 
     public DatabaseHelper(Context context) {
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                             SUBJECT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                             SUBJECT_NAME + " TEXT NOT NULL," +
                             SUBJECT_CODE + " TEXT, " +
-                            SUBJECT_PERIOD + " INTEGER NOT NULL);");
+                            SUBJECT_SEMESTER + " INTEGER NOT NULL);");
         insertRequiredSubjectsValues(sqLiteDatabase);
         insertOptionalSubjectsValues(sqLiteDatabase);
 

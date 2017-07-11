@@ -4,30 +4,30 @@ import java.util.ArrayList;
 
 public class SubjectManager {
 
-    private ArrayList<Period> periods = new ArrayList<>();
+    private ArrayList<Semester> semesters = new ArrayList<>();
     private ArrayList<Subject> updatedSubjects = new ArrayList<>();
     private ArrayList<Subject> excludedSubjects = new ArrayList<>();
 
     public SubjectManager(){
     }
 
-    public Period getPeriod(int periodNumber){
-        Period period = null;
-        for (Period p : periods){
+    public Semester getPeriod(int periodNumber){
+        Semester semester = null;
+        for (Semester p : semesters){
             if (p.getPeriodNumber() == periodNumber){
-                period = p;
+                semester = p;
             }
         }
-        if (period == null){
-            period = new Period(periodNumber);
-            periods.add(period);
+        if (semester == null){
+            semester = new Semester(periodNumber);
+            semesters.add(semester);
         }
-        return period;
+        return semester;
     }
 
     public void updateSubject(Subject subject){
-        Period period = getPeriod(subject.getPeriod());
-        for (Subject s : period.getSubjects()){
+        Semester semester = getPeriod(subject.getPeriod());
+        for (Subject s : semester.getSubjects()){
             if (s.getDescription().equals(subject.getDescription())){
                 if (!checkIfUpdated(s)) {
                     updatedSubjects.add(s);
@@ -57,8 +57,8 @@ public class SubjectManager {
     }
 
     public void excludeSubject(Subject subject){
-        Period period = getPeriod(subject.getPeriod());
-        for (Subject s : period.getSubjects()){
+        Semester semester = getPeriod(subject.getPeriod());
+        for (Subject s : semester.getSubjects()){
             if (s.getDescription().equals(subject.getDescription())){
                 if (!checkIfExcluded(s)) {
                     excludedSubjects.add(s);
