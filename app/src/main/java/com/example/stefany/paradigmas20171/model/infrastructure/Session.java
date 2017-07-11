@@ -10,6 +10,7 @@ public class Session {
     private static String email;
     private static String password;
     private static int periods;
+    private static String serverAddress;
     private static Context context;
     private static SubjectManager subjectManager;
     private static int currentEntry = 1;
@@ -47,6 +48,14 @@ public class Session {
 
     public static void setSubjectManager(SubjectManager subjectManager) {
         Session.subjectManager = subjectManager;
+    }
+
+    public static String getServerAddress() {
+        return serverAddress;
+    }
+
+    public static void setServerAddress(String serverAddress) {
+        Session.serverAddress = serverAddress;
     }
 
     public static String getEmail() {

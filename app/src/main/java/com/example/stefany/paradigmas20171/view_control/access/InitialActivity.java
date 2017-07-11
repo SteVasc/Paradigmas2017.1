@@ -16,6 +16,7 @@ public class InitialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
         Session.setContext(this);
+        Session.setServerAddress("http://192.168.40.101:5000/");
         Session.setSubjectManager(new SubjectManager());
 
         Handler handler = new Handler();
