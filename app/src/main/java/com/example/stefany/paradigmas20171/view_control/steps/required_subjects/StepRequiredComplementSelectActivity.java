@@ -33,7 +33,6 @@ public class StepRequiredComplementSelectActivity extends AppCompatActivity {
     private ArrayList<Subject> subjects = new ArrayList<>();
     private ArrayList<Subject> allSubjects = new ArrayList<>();
     private ListView listView;
-    private ArrayList<Subject> updatedSubjects;
     private SearchView searchView;
     private Button btnContinue;
     private Button btnExit;

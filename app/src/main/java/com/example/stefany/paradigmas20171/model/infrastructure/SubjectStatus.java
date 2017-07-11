@@ -6,8 +6,8 @@ public enum SubjectStatus {
     DISAPPROVED("Reprovado", 2),
     STUDYING("Cursando", 3),
     NOT_ATTENDED("Não cursado", 0),
-    TO_ATTEND("Cursar", 5),
-    TO_NOT_ATTEND("Não cursar", 6);
+    TO_ATTEND("Cursar", 4),
+    TO_NOT_ATTEND("Não cursar", 5);
 
     private String description;
     private int code;

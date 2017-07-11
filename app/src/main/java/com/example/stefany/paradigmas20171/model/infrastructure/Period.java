@@ -19,6 +19,8 @@ public class Period {
             dao.setUp(Session.getContext());
             subjects = dao.getSubjectsByPeriod(periodNumber);
         } else {
+            dao = SubjectDAO.getInstace();
+            dao.setUp(Session.getContext());
             subjects = dao.getOptionalSubjects();
         }
     }
