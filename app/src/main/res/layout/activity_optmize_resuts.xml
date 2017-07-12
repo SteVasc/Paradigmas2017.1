@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.stefany.paradigmas20171.view_control.results.OptmizeResutsActivity">
+    <TextView
+        android:id="@+id/txt_presentation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estes são os resultados obtidos pela otimização de suas cadeiras"
+        android:gravity="center_horizontal"/>
+    <TextView
+        android:id="@+id/txt_result_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_presentation"
+        android:text="Apresentando resultado: 1"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/txt_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/txt_result_number"
+        android:layout_below="@+id/txt_presentation"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:text="Anterior"/>
+    <TextView
+        android:id="@+id/txt_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/txt_previous"
+        android:layout_below="@+id/txt_presentation"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:text="Próximo"/>
+
+    <ImageButton
+        android:id="@+id/btn_previous_semester"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/txt_result_number"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="104dp"
+        android:src="@drawable/previous_icon"/>
+
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="500dp"
+        android:layout_marginTop="40dp"
+        android:numColumns="5"
+        android:verticalSpacing="10dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/txt_result_number"
+        android:layout_toEndOf="@+id/btn_previous_semester">
+    </GridView>
+    <ImageButton
+        android:id="@+id/btn_next_semester"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_toEndOf="@+id/grid_view"
+        android:layout_alignTop="@+id/btn_previous_semester"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/next_icon"/>
+
+
+</RelativeLayout>

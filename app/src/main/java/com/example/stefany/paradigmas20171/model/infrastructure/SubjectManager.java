@@ -26,7 +26,7 @@ public class SubjectManager {
     }
 
     public void updateSubject(Subject subject){
-        Semester semester = getPeriod(subject.getPeriod());
+        Semester semester = getPeriod(subject.getSemester());
         for (Subject s : semester.getSubjects()){
             if (s.getDescription().equals(subject.getDescription())){
                 if (!checkIfUpdated(s)) {
@@ -57,7 +57,7 @@ public class SubjectManager {
     }
 
     public void excludeSubject(Subject subject){
-        Semester semester = getPeriod(subject.getPeriod());
+        Semester semester = getPeriod(subject.getSemester());
         for (Subject s : semester.getSubjects()){
             if (s.getDescription().equals(subject.getDescription())){
                 if (!checkIfExcluded(s)) {

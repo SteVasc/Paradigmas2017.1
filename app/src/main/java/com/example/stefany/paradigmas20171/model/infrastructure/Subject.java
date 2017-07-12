@@ -4,7 +4,8 @@ public class Subject {
     private String description;
     private SubjectStatus status;
     private SubjectStatus inclusionStatus;
-    private int period;
+    private int semester;
+    private String schedule;
 
     public Subject(){
         this.status = SubjectStatus.NOT_ATTENDED;
@@ -27,12 +28,12 @@ public class Subject {
         return status;
     }
 
-    public int getPeriod() {
-        return period;
+    public int getSemester() {
+        return semester;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
     public void setDescription(String description) {
@@ -41,5 +42,12 @@ public class Subject {
 
     public void setStatus(SubjectStatus status) {
         this.status = status;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }

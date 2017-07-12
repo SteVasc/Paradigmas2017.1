@@ -1,5 +1,6 @@
 package com.example.stefany.paradigmas20171.view_control.results;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,8 +25,11 @@ public class WaitingForResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_for_results);
         urlAddress = Session.getServerAddress();
-        communicate();
-        Toast.makeText(WaitingForResultsActivity.this, serverResponse, Toast.LENGTH_LONG).show();
+        Intent intentGoToResults = new Intent(WaitingForResultsActivity.this, OptmizeResutsActivity.class);
+        startActivity(intentGoToResults);
+        finish();
+        //communicate();
+        //Toast.makeText(WaitingForResultsActivity.this, serverResponse, Toast.LENGTH_LONG).show();
     }
 
     public void communicate(){
