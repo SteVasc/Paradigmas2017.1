@@ -17,6 +17,8 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.view_control.server_control.ServerAccessController;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -144,23 +146,42 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-
             StringBuilder result = new StringBuilder();
             HttpURLConnection connection = null;
+
             try {
                 URL url = new URL(urlAddress + "login/");
+
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
                 connection.setRequestMethod("POST");
+
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-                String email = Session.getEmail();
-                String password = Session.getPassword();
-                String jsonString = "{\"email\" : \"" + email + "\", \"password\" : \"" + password + "\"}";
-                writer.write(jsonString);
+
+                /*
+                Passando os atributos para um json, mais fácil do que lidar com strings
+                 */
+                JSONObject json = new JSONObject();
+                json.put("email", Session.getEmail());
+                json.put("password", Session.getPassword());
+
+                writer.write(json.toString());
                 writer.close();
+
                 connection.connect();
-                InputStream in = new BufferedInputStream(connection.getInputStream());
+                InputStream in;
+
+                /*
+                Antes de abrir uma conexão com o inputStream, verificar o código de retorno da
+                requisição, caso a o código de retorno seja de erro a conexão de resposta virá
+                através de um ErrorStream, caso contrário virá através de um InputStream.
+                 */
+                if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
+                    in = new BufferedInputStream(connection.getErrorStream());
+                else
+                    in = new BufferedInputStream(connection.getInputStream());
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));;
                 String line;
                 while ((line = reader.readLine()) != null) {

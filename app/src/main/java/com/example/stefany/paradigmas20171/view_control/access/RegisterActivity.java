@@ -15,6 +15,8 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -149,20 +151,33 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
                 URL url = new URL(urlAddress + "register/");
+
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
                 connection.setRequestMethod("PUT");
+
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-                String email = Session.getEmail();
-                String password = Session.getPassword();
-                String jsonString = "{\"email\" : \"" + email + "\", \"password\" : \"" + password + "\"}";
-                writer.write(jsonString);
+
+                JSONObject json = new JSONObject();
+                json.put("email", Session.getEmail());
+                json.put("password", Session.getPassword());
+
+                writer.write(json.toString());
                 writer.close();
+
                 connection.connect();
-                InputStream in = new BufferedInputStream(connection.getInputStream());
+
+                InputStream in;
+
+                if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
+                    in = new BufferedInputStream(connection.getErrorStream());
+                else
+                    in = new BufferedInputStream(connection.getInputStream());
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));;
                 String line;
+
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }

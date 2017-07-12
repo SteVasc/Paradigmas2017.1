@@ -45,8 +45,8 @@
         android:gravity="center_vertical"
         android:layout_below="@+id/txt_result_number"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="104dp"
-        android:src="@drawable/previous_icon"/>
+        android:layout_marginTop="104dp"/>
+        <!--android:src="@drawable/previous_icon"-->
 
     <GridView
         android:id="@+id/grid_view"
@@ -58,6 +58,7 @@
         android:layout_below="@+id/txt_result_number"
         android:layout_toEndOf="@+id/btn_previous_semester">
     </GridView>
+
     <ImageButton
         android:id="@+id/btn_next_semester"
         android:layout_width="45dp"
@@ -65,8 +66,6 @@
         android:gravity="center_vertical"
         android:layout_toEndOf="@+id/grid_view"
         android:layout_alignTop="@+id/btn_previous_semester"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/next_icon"/>
-
-
+        android:layout_alignParentEnd="true"/>
+        <!--android:src="@drawable/next_icon"-->
 </RelativeLayout>
