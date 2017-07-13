@@ -6,6 +6,7 @@ public class Subject {
     private SubjectStatus inclusionStatus;
     private int semester;
     private String schedule;
+    private String code;
 
     public Subject(){
         this.status = SubjectStatus.NOT_ATTENDED;
@@ -49,5 +50,13 @@ public class Subject {
     }
     public void setSchedule(String schedule) {
         this.schedule = schedule;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

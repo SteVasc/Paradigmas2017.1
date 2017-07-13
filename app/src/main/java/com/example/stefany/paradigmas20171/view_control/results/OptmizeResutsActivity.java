@@ -30,42 +30,7 @@ public class OptmizeResutsActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.grid_view);
         testSubjects();
         allocate();
-        byPassAllocate();
-        gridView.setAdapter(new GridAdapter(this, subjectsArray));
-    }
-
-    public void byPassAllocate(){
-        subjectsArray = new Subject[10];
-        Subject s = subjects.get(1);
-        s.setSchedule("SEG 08-10");
-        subjectsArray[0] = s;
-        s = subjects.get(4);
-        s.setSchedule("TER 08-10");
-        subjectsArray[1] = s;
-        s = subjects.get(1);
-        s.setSchedule("QUA 08-10");
-        subjectsArray[2] = s;
-        s = subjects.get(3);
-        s.setSchedule("QUI 08-10");
-        subjectsArray[3] = s;
-        s = subjects.get(3);
-        s.setSchedule("SEX 08-10");
-        subjectsArray[4] = s;
-        s = subjects.get(0);
-        s.setSchedule("SEG 10-12");
-        subjectsArray[5] = s;
-        s = subjects.get(3);
-        s.setSchedule("TER 10-12");
-        subjectsArray[6] = s;
-        s = subjects.get(0);
-        s.setSchedule("QUA 10-12");
-        subjectsArray[7] = s;
-        s = subjects.get(2);
-        s.setSchedule("QUI 10-12");
-        subjectsArray[8] = s;
-        s = subjects.get(4);
-        s.setSchedule("SEX 10-12");
-        subjectsArray[9] = s;
+        gridView.setAdapter(new GridAdapter(subjectsArray));
     }
 
     public void allocate(){
@@ -86,16 +51,16 @@ public class OptmizeResutsActivity extends AppCompatActivity {
         String[] parts = schedule.split(" ");
         String day = parts[0];
         String time = parts[1];
-        position = position + getRow(time) + getColumn(day);
+        position = position + getRow(day) + getColumn(time);
         return position;
     }
 
-    public int getRow(String time){
+    public int getRow(String day){
         int rowAdd = 0;
-        Log.d("TIMEOFSCHEDULE", time);
+        Log.d("TIMEOFSCHEDULE", day);
         String[] days = new String[]{"SEG", "TER", "QUA", "QUI", "SEX"};
         for (int i = 0; i < days.length; i++){
-            if (time.contains(days[i])){
+            if (day.equals(days[i])){
                 rowAdd = i;
                 break;
             }
@@ -103,10 +68,10 @@ public class OptmizeResutsActivity extends AppCompatActivity {
         return rowAdd;
     }
 
-    public int getColumn(String day){
+    public int getColumn(String time){
         int columnAdd = 0;
-        Log.d("DAYOFSCHEDULE", day);
-        if (day.contains("10-12")){
+        Log.d("DAYOFSCHEDULE", time);
+        if (time.contains("10-12")){
             columnAdd = 5;
         }
         return columnAdd;
@@ -124,11 +89,9 @@ public class OptmizeResutsActivity extends AppCompatActivity {
     private class GridAdapter extends BaseAdapter {
 
         private Subject[] subjects;
-        private Context context;
 
-        public GridAdapter(Context context, Subject[] subjects){
+        public GridAdapter(Subject[] subjects){
             this.subjects = subjects;
-            this.context = context;
         }
 
         @Override

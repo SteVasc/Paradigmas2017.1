@@ -1,6 +1,9 @@
 package com.example.stefany.paradigmas20171.view_control.access;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,18 +17,24 @@ import android.widget.Toast;
 
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
-import com.example.stefany.paradigmas20171.view_control.server_control.ServerAccessController;
+import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
+import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnContinue;
     private String urlAddress;
     private String serverResponse;
-    private boolean cancel;
+    private boolean loginDenied;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,15 +86,66 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void communicateBypass(){
+        this.serverResponse = "{\"email\":\"ayy@lma.o\",\"password\":\"dadada\"," +
+                "\"semester\":\"5\"," +
+                "\"subjects\":" +
+                "[{\"code\":\"6438\",\"status\":\"PASSED\"}," +
+                "{\"code\":\"6438\",\"status\":\"PASSED\"},{\"code\":\"4162\",\"status\":\"PASSED\"}," +
+                "{\"code\":\"6439\",\"status\":\"PASSED\"},{\"code\":\"6214\",\"status\":\"ONGOING\"}," +
+                "{\"code\":\"6239\",\"status\":\"PASSED\"},{\"code\":\"6283\",\"status\":\"FAILED\"}]}";
+        loginDenied = false;
+        try {
+            ArrayList<Subject> mySubjects = getMySubjects(serverResponse);
+            setCredentials(serverResponse);
+            Session.getSubjectManager().setMySubjects(mySubjects);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCredentials(String toJson) throws JSONException {
+        final JSONObject object = new JSONObject(toJson);
+        Session.setEmail(object.getString("email"));
+        Session.setPassword(object.getString("password"));
+    }
+
+    public ArrayList<Subject> getMySubjects(String toJson) throws JSONException {
+        ArrayList<Subject> subjectArrayList = new ArrayList<>();
+        final JSONObject object = new JSONObject(toJson);
+        final JSONArray array = object.getJSONArray("subjects");
+        final int length = array.length();
+        for (int i = 0; i < length; i++){
+            final JSONObject jsonObject = array.getJSONObject(i);
+            Subject subject = Session.getSubjectManager().getSubjectByCode(jsonObject.getString("code"));
+            subject = adjustStatus(subject, jsonObject.getString("status"));
+            subjectArrayList.add(subject);
+        }
+        return subjectArrayList;
+    }
+
+    public Subject adjustStatus(Subject s, String status){
+        Subject subject = s;
+        if (status == "FAILED"){
+            subject.setStatus(SubjectStatus.DISAPPROVED);
+        } else if (status == "PASSED"){
+            subject.setStatus(SubjectStatus.APPROVED);
+        } else if (status == "ONGOING"){
+            subject.setStatus(SubjectStatus.STUDYING);
+        }
+        return subject;
+    }
+
     public void communicate(){
         final LoginActivity.LoginController controller = new LoginActivity.LoginController();
         controller.execute();
         try {
             controller.get();
-        } catch (InterruptedException e) {
-            abortOperation();
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            ArrayList<Subject> mySubjects = getMySubjects(serverResponse);
+            setCredentials(serverResponse);
+            Session.getSubjectManager().setMySubjects(mySubjects);
+
+        } catch (InterruptedException | ExecutionException | JSONException e) {
             abortOperation();
             e.printStackTrace();
         }
@@ -98,27 +158,26 @@ public class LoginActivity extends AppCompatActivity {
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
 
-        cancel = false;
+        loginDenied = false;
         View focusView = null;
         if (TextUtils.isEmpty(password)) {
             this.password.setError(getString(R.string.error_invalid_password));
             focusView = this.password;
-            cancel = true;
+            loginDenied = true;
         }
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             this.email.setError(getString(R.string.error_field_required));
             focusView = this.email;
-            cancel = true;
+            loginDenied = true;
         }
         try {
             Session.setEmail(email);
             Session.setPassword(password);
-            communicate();
-            Toast.makeText(LoginActivity.this, this.serverResponse, Toast.LENGTH_LONG).show();
-            Log.d("RETURN", serverResponse);
+            //communicate();
+            communicateBypass();
         } catch (Exception e){
-            cancel = true;
+            loginDenied = true;
             e.printStackTrace();
         }
         if (focusView != null) {
@@ -127,11 +186,11 @@ public class LoginActivity extends AppCompatActivity {
         login();
     }
     public void abortOperation(){
-        cancel = true;
+        loginDenied = true;
     }
 
     private void login() {
-        if (!cancel) {
+        if (!loginDenied) {
             //Operation Successful
             Session.setLogged(true);
             Intent intentGoProfile = new Intent(LoginActivity.this, ProfileActivity.class);
@@ -148,56 +207,81 @@ public class LoginActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             StringBuilder result = new StringBuilder();
             HttpURLConnection connection = null;
+            if (isURLReachable(LoginActivity.this)) {
+                try {
+                    URL url = new URL(urlAddress + "login/");
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestMethod("POST");
+                    OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+                    /*
+                    Passando os atributos para um json, mais fácil do que lidar com strings
+                    */
+                    JSONObject json = new JSONObject();
+                    json.put("email", Session.getEmail());
+                    json.put("password", Session.getPassword());
 
-            try {
-                URL url = new URL(urlAddress + "login/");
+                    writer.write(json.toString());
+                    writer.close();
 
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-                connection.setRequestMethod("POST");
+                    connection.connect();
+                    InputStream in;
 
-                OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+                    /*
+                     Antes de abrir uma conexão com o inputStream, verificar o código de retorno da
+                    requisição, caso a o código de retorno seja de erro a conexão de resposta virá
+                    através de um ErrorStream, caso contrário virá através de um InputStream.
+                    */
+                    if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
+                        in = new BufferedInputStream(connection.getErrorStream());
+                    else
+                        in = new BufferedInputStream(connection.getInputStream());
 
-                /*
-                Passando os atributos para um json, mais fácil do que lidar com strings
-                 */
-                JSONObject json = new JSONObject();
-                json.put("email", Session.getEmail());
-                json.put("password", Session.getPassword());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
 
-                writer.write(json.toString());
-                writer.close();
-
-                connection.connect();
-                InputStream in;
-
-                /*
-                Antes de abrir uma conexão com o inputStream, verificar o código de retorno da
-                requisição, caso a o código de retorno seja de erro a conexão de resposta virá
-                através de um ErrorStream, caso contrário virá através de um InputStream.
-                 */
-                if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
-                    in = new BufferedInputStream(connection.getErrorStream());
-                else
-                    in = new BufferedInputStream(connection.getInputStream());
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));;
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                } catch (Exception e) {
+                    abortOperation();
+                    e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
                 }
-
-            } catch (Exception e) {
+            } else {
                 abortOperation();
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
+                Toast.makeText(LoginActivity.this, "Servidor não respondendo", Toast.LENGTH_LONG).show();
             }
             this.result = result.toString();
             return result.toString();
+        }
+        //code based in a answer of StackOverflow forums
+        private boolean isURLReachable(Context context) {
+            boolean isResponding = false;
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()) {
+                try {
+                    URL url = new URL(Session.getServerAddress());   // Change to "http://google.com" for www  test.
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setConnectTimeout(5 * 1000);          // 10 s.
+                    urlConnection.connect();
+                    if (urlConnection.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                        isResponding = true;
+                    } else {
+                        isResponding = false;
+                    }
+                } catch (MalformedURLException e1) {
+                    isResponding = false;
+                } catch (IOException e) {
+                    isResponding = false;
+                }
+            }
+            return isResponding;
         }
     }
 }

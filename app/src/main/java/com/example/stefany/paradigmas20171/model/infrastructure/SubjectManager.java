@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SubjectManager {
 
     private ArrayList<Semester> semesters = new ArrayList<>();
+    private ArrayList<Subject> mySubjects = new ArrayList<>();
     private ArrayList<Subject> updatedSubjects = new ArrayList<>();
     private ArrayList<Subject> excludedSubjects = new ArrayList<>();
 
@@ -23,6 +24,22 @@ public class SubjectManager {
             semesters.add(semester);
         }
         return semester;
+    }
+
+    public Subject getSubjectByCode(String code){
+        ArrayList<Subject> allSubjects = new ArrayList<>();
+        Subject s = null;
+        for (int i = 1; i <= 10;i++){
+            allSubjects.addAll(Session.getSubjectManager().getPeriod(i).getSubjects());
+        }
+        for (Subject subject : allSubjects){
+            String subjectCode = subject.getCode();
+            if (subjectCode.equals(code)){
+                s = subject;
+                break;
+            }
+        }
+        return s;
     }
 
     public void updateSubject(Subject subject){
@@ -78,5 +95,13 @@ public class SubjectManager {
 
     public ArrayList<Subject> getUpdatedSubjects() {
         return updatedSubjects;
+    }
+
+    public void setMySubjects(ArrayList<Subject> mySubjects) {
+        this.mySubjects = mySubjects;
+    }
+
+    public ArrayList<Subject> getMySubjects() {
+        return mySubjects;
     }
 }

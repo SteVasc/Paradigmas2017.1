@@ -73,7 +73,10 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_my_subjects) {
-            //TODO implement list of subjects activity
+            Intent intentGoSteps = new Intent(ProfileActivity.this, MySubjectsActivity.class);
+            finish();
+            startActivity(intentGoSteps);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_results) {
             //TODO go to result activity
         } else if (id == R.id.nav_calculate) {

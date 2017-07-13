@@ -185,11 +185,6 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
             return view;
         }
     }
-
-    public static void setNumberOfScreens(int numberOfScreens) {
-        StepPeriodSubjectsActivity.numberOfScreens = numberOfScreens;
-    }
-
     public static void setPeriodNumber(Integer periodNumber) {
         StepPeriodSubjectsActivity.periodNumber = periodNumber;
     }

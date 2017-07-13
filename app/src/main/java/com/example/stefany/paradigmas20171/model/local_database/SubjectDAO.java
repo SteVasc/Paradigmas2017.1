@@ -27,7 +27,9 @@ public class SubjectDAO extends DAO {
             do {
                 Subject subject = new Subject();
                 subject.setDescription(cursor.getString(1));
+                subject.setCode(cursor.getString(2));
                 subject.setSemester(cursor.getInt(3));
+                subject.setSchedule(cursor.getString(4));
                 subjects.add(subject);
             } while (cursor.moveToNext());
         }
