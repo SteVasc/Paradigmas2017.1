@@ -44,8 +44,6 @@ public class OptimizeResultsActivity extends AppCompatActivity {
                 if (semesterNumber < getMaxPeriod()){
                     setSemesterNumber(semesterNumber + 1);
                     setOriginalSubjects(originalSubjects);
-                    Integer i = originalSubjects.size();
-                    Log.d("SI_ZE", i.toString());
                     Intent intentRepeat = new Intent(OptimizeResultsActivity.this, OptimizeResultsActivity.class);
                     finish();
                     startActivity(intentRepeat);
@@ -60,8 +58,6 @@ public class OptimizeResultsActivity extends AppCompatActivity {
                 if (semesterNumber > getStartingSemester()){
                     OptimizeResultsActivity.setStartingSemester();
                     setOriginalSubjects(originalSubjects);
-                    Integer i = originalSubjects.size();
-                    Log.d("SI_ZE", i.toString());
                     Intent intentRepeat = new Intent(OptimizeResultsActivity.this, OptimizeResultsActivity.class);
                     finish();
                     startActivity(intentRepeat);
@@ -70,8 +66,6 @@ public class OptimizeResultsActivity extends AppCompatActivity {
             }
         });
         getSemesterSubjects();
-        Integer i = subjects.size();
-        Log.d("SI_ZE1", i.toString());
         allocate();
         gridView.setAdapter(new GridAdapter(subjectsArray));
     }
@@ -118,7 +112,6 @@ public class OptimizeResultsActivity extends AppCompatActivity {
         for (Subject subject : subjects){
             String[] parts = subject.getSchedule().split(";");
             for (int i = 0; i < parts.length; i++) {
-                Log.d("PAR_TS", parts[i]);
                 String schedule = parts[i];
                 Subject s = new Subject();
                 s.setDescription(subject.getDescription());

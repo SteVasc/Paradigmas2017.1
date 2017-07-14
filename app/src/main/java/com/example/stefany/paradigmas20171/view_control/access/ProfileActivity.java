@@ -1,6 +1,7 @@
 package com.example.stefany.paradigmas20171.view_control.access;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,19 +9,46 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.model.infrastructure.Session;
+import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
+import com.example.stefany.paradigmas20171.view_control.results.WaitingForResultsActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ProgressBar progress;
+    private ArrayList<Subject> mySubjects;
+    private double progressPercentual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+        mySubjects = Session.getSubjectManager().getMySubjects();
+        progressPercentual = (mySubjects.size()/50.0);
+        progressPercentual = progressPercentual*100;
+
+        Double p = progressPercentual;
+        Log.d("PROGR_ESS", p.toString());
+
+        Integer i = (int) progressPercentual;
+        Log.d("PROG_RESS", i.toString());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            progress.setProgress((int) progressPercentual, true);
+        } else {
+            progress.setProgress((int) progressPercentual);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,9 +106,11 @@ public class ProfileActivity extends AppCompatActivity
             startActivity(intentGoSteps);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_results) {
-            //TODO go to result activity
+            Intent intentGoSteps = new Intent(ProfileActivity.this, WaitingForResultsActivity.class);
+            finish();
+            startActivity(intentGoSteps);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_calculate) {
-            //TODO check first access state
             Intent intentGoSteps = new Intent(ProfileActivity.this, StepFirstAccessActivity.class);
             finish();
             startActivity(intentGoSteps);
