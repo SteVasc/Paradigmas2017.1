@@ -15,11 +15,11 @@ public class Session {
     private static SubjectManager subjectManager;
     private static int currentEntry = 1;
 
-    public static void setPeriods(int admissionYear, int entry) {
+    public static void setSemesters(int admissionYear, int entry) {
         int actualYear = Calendar.getInstance().get(Calendar.YEAR);
         int years = actualYear - admissionYear;
         if (admissionYear == actualYear){
-            semesters = 1;
+            semesters = 0;
         } else if (currentEntry == entry){
             semesters = years*2;
         } else if (currentEntry < entry){
@@ -28,6 +28,11 @@ public class Session {
             semesters = (years*2) + 1;
         }
     }
+
+    public static void setSemesters(int semesters) {
+        Session.semesters = semesters;
+    }
+
     public static void adjustPeriods(int numberOfPeriods){
         semesters = semesters - numberOfPeriods;
     }

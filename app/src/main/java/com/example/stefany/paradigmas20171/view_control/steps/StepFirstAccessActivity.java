@@ -25,7 +25,7 @@ public class StepFirstAccessActivity extends AppCompatActivity {
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentGoAdmissionTime = new Intent(StepFirstAccessActivity.this, StepAdmissionPeriodActivity.class);
+                Intent intentGoAdmissionTime = new Intent(StepFirstAccessActivity.this, StepAdmissionSemesterActivity.class);
                 startActivity(intentGoAdmissionTime);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

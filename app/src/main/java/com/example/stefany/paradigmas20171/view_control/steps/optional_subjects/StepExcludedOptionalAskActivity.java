@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.view_control.steps.StepAdmissionSemesterActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepReviewAskActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementAskActivity;
 
 public class StepExcludedOptionalAskActivity extends AppCompatActivity {
 
@@ -40,6 +42,12 @@ public class StepExcludedOptionalAskActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
-
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepExcludedOptionalAskActivity.this, StepOptionalStartActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

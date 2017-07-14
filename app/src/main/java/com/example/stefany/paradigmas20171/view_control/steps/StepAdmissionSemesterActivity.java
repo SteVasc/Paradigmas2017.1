@@ -13,11 +13,11 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
-import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepSemesterSubjectsActivity;
 
 import java.util.Calendar;
 
-public class StepAdmissionPeriodActivity extends AppCompatActivity {
+public class StepAdmissionSemesterActivity extends AppCompatActivity {
 
     private EditText editTextAdmissionYear;
     private RadioGroup group;
@@ -33,6 +33,8 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
         buttonContinue = (Button) findViewById(R.id.button_affirmative);
         buttonExit = (Button) findViewById(R.id.button_negative);
         group = (RadioGroup) findViewById(R.id.radio_group);
+
+
 
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +53,7 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
                     int radioButtonID = group.getCheckedRadioButtonId();
                     View radioButton = group.findViewById(radioButtonID);
                     int index = group.indexOfChild(radioButton);
-                    Session.setPeriods(admissionYear, index + 1);
+                    Session.setSemesters(admissionYear, index + 1);
                     changeScreen();
                 } catch (Exception e){
                     e.printStackTrace();
@@ -63,27 +65,39 @@ public class StepAdmissionPeriodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Session.isLogged()){
-                    Intent intentBackProfile = new Intent(StepAdmissionPeriodActivity.this, ProfileActivity.class);
+                    Intent intentBackProfile = new Intent(StepAdmissionSemesterActivity.this, ProfileActivity.class);
                     startActivity(intentBackProfile);
                     finish();
                 } else {
-                    Intent intentBackLogin = new Intent(StepAdmissionPeriodActivity.this, LoginActivity.class);
+                    Intent intentBackLogin = new Intent(StepAdmissionSemesterActivity.this, LoginActivity.class);
                     startActivity(intentBackLogin);
                     finish();
                 }
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        if (Session.isLogged()){
+            Intent intentBackProfile = new Intent(StepAdmissionSemesterActivity.this, ProfileActivity.class);
+            startActivity(intentBackProfile);
+            finish();
+        } else {
+            Intent intentBackLogin = new Intent(StepAdmissionSemesterActivity.this, LoginActivity.class);
+            startActivity(intentBackLogin);
+            finish();
+        }
+    }
 
     private void changeScreen() {
         if (lockIsPossible) {
-            Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepLockingAskActivity.class);
+            Intent intentContinue = new Intent(StepAdmissionSemesterActivity.this, StepLockingAskActivity.class);
             startActivity(intentContinue);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else {
-            StepPeriodSubjectsActivity.setPeriodNumber(1);
-            Intent intentContinue = new Intent(StepAdmissionPeriodActivity.this, StepPeriodSubjectsActivity.class);
+            StepSemesterSubjectsActivity.setSemesterNumber(1);
+            Intent intentContinue = new Intent(StepAdmissionSemesterActivity.this, StepSemesterSubjectsActivity.class);
             startActivity(intentContinue);
             finish();
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

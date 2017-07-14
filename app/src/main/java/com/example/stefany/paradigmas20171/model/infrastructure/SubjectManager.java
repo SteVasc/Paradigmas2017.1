@@ -9,9 +9,6 @@ public class SubjectManager {
     private ArrayList<Subject> updatedSubjects = new ArrayList<>();
     private ArrayList<Subject> excludedSubjects = new ArrayList<>();
 
-    public SubjectManager(){
-    }
-
     public Semester getPeriod(int periodNumber){
         Semester semester = null;
         for (Semester p : semesters){

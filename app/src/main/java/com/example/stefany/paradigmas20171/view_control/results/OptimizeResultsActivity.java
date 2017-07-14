@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
+import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class OptimizeResultsActivity extends AppCompatActivity {
     private ImageButton previous;
     private ImageButton next;
     private TextView txtSemester;
+    private Button btn_finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,16 @@ public class OptimizeResultsActivity extends AppCompatActivity {
         txtSemester = (TextView) findViewById(R.id.txt_semester_number);
         previous = (ImageButton) findViewById(R.id.btn_previous_semester);
         next = (ImageButton) findViewById(R.id.btn_next_semester);
-
+        btn_finish = (Button) findViewById(R.id.button_finish);
+        btn_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentRepeat = new Intent(OptimizeResultsActivity.this, ProfileActivity.class);
+                finish();
+                startActivity(intentRepeat);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
         txtSemester.setText("Periodo: " + semesterNumber.toString());
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -126,13 +138,12 @@ public class OptimizeResultsActivity extends AppCompatActivity {
         String[] parts = schedule.split(" ");
         String day = parts[0];
         String time = parts[1];
-        position = position + getRow(day) + getColumn(time);
+        position = position + getColumn(day) + getRow(time);
         return position;
     }
 
-    public int getRow(String day){
+    public int getColumn(String day){
         int rowAdd = 0;
-        Log.d("TIMEOFSCHEDULE", day);
         String[] days = new String[]{"SEG", "TER", "QUA", "QUI", "SEX"};
         for (int i = 0; i < days.length; i++){
             if (day.equals(days[i])){
@@ -143,23 +154,14 @@ public class OptimizeResultsActivity extends AppCompatActivity {
         return rowAdd;
     }
 
-    public int getColumn(String time){
+    public int getRow(String time){
         int columnAdd = 0;
-        Log.d("DAYOFSCHEDULE", time);
         if (time.contains("10-12")){
             columnAdd = 5;
         }
         return columnAdd;
     }
 
-    public void testSubjects(){
-        subjects = Session.getSubjectManager().getPeriod(1).getSubjects();
-        subjects.get(0).setSchedule("SEG 10-12;QUA 10-12");
-        subjects.get(1).setSchedule("SEG 08-10;QUA 08-10");
-        subjects.get(2).setSchedule("QUI 10-12");
-        subjects.get(3).setSchedule("TER 10-12;QUI 08-10;SEX 08-10");
-        subjects.get(4).setSchedule("TER 08-10;SEX 10-12");
-    }
 
     public static void setOriginalSubjects(ArrayList<Subject> originalSubjects) {
         OptimizeResultsActivity.originalSubjects = originalSubjects;

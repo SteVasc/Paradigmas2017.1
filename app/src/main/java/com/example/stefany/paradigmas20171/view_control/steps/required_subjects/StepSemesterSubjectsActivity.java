@@ -21,11 +21,12 @@ import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
+import com.example.stefany.paradigmas20171.view_control.steps.StepAdmissionSemesterActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
 
 import java.util.ArrayList;
 
-public class StepPeriodSubjectsActivity extends AppCompatActivity {
+public class StepSemesterSubjectsActivity extends AppCompatActivity {
 
     private static ArrayList<Subject> subjects;
     private static int numberOfScreens;
@@ -46,7 +47,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
         numberOfScreens = Session.getSemesters();
-        getSubjectsbyPeriod();
+        getSubjectsByPeriod();
         populateList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,19 +63,19 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 updateStepState();
                 if (periodNumber <= numberOfScreens){
-                    StepPeriodSubjectsActivity.setPeriodNumber(periodNumber+1);
-                    Intent intentRepeat = new Intent(StepPeriodSubjectsActivity.this, StepPeriodSubjectsActivity.class);
+                    StepSemesterSubjectsActivity.setSemesterNumber(periodNumber+1);
+                    Intent intentRepeat = new Intent(StepSemesterSubjectsActivity.this, StepSemesterSubjectsActivity.class);
                     finish();
                     startActivity(intentRepeat);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 } else {
                     if (!review) {
-                        Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepRequiredComplementAskActivity.class);
+                        Intent intentForward = new Intent(StepSemesterSubjectsActivity.this, StepRequiredComplementAskActivity.class);
                         finish();
                         startActivity(intentForward);
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     } else {
-                        Intent intentForward = new Intent(StepPeriodSubjectsActivity.this, StepFinalizeAskActivity.class);
+                        Intent intentForward = new Intent(StepSemesterSubjectsActivity.this, StepFinalizeAskActivity.class);
                         finish();
                         startActivity(intentForward);
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -86,12 +87,12 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Session.isLogged()){
-                    Intent intentBackProfile = new Intent(StepPeriodSubjectsActivity.this, ProfileActivity.class);
+                    Intent intentBackProfile = new Intent(StepSemesterSubjectsActivity.this, ProfileActivity.class);
                     startActivity(intentBackProfile);
                     finish();
 
                 } else {
-                    Intent intentBackLogin = new Intent(StepPeriodSubjectsActivity.this, LoginActivity.class);
+                    Intent intentBackLogin = new Intent(StepSemesterSubjectsActivity.this, LoginActivity.class);
                     startActivity(intentBackLogin);
                     finish();
                 }
@@ -108,7 +109,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
     }
 
     public static void setReview(boolean review) {
-        StepPeriodSubjectsActivity.review = review;
+        StepSemesterSubjectsActivity.review = review;
     }
 
     public void populateList(){
@@ -145,20 +146,28 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         }
     }
 
-    public void getSubjectsbyPeriod(){
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepSemesterSubjectsActivity.this, StepAdmissionSemesterActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+
+    public void getSubjectsByPeriod(){
         Semester semester = Session.getSubjectManager().getPeriod(periodNumber);
         setSubjects(semester.getSubjects());
     }
 
     public static void setSubjects(ArrayList<Subject> subjects) {
-        StepPeriodSubjectsActivity.subjects = subjects;
+        StepSemesterSubjectsActivity.subjects = subjects;
     }
 
     private class SubjectListAdapter extends ArrayAdapter<Subject>{
 
 
         public SubjectListAdapter(){
-            super(StepPeriodSubjectsActivity.this, R.layout.list_item_subjects_status, subjects);
+            super(StepSemesterSubjectsActivity.this, R.layout.list_item_subjects_status, subjects);
         }
 
         @NonNull
@@ -185,7 +194,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
             return view;
         }
     }
-    public static void setPeriodNumber(Integer periodNumber) {
-        StepPeriodSubjectsActivity.periodNumber = periodNumber;
+    public static void setSemesterNumber(Integer periodNumber) {
+        StepSemesterSubjectsActivity.periodNumber = periodNumber;
     }
 }

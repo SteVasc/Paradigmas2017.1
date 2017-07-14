@@ -16,15 +16,14 @@ public class InitialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
         Session.setContext(this);
-//        Session.setServerAddress("http://192.168.40.101:5000/");
-        Session.setServerAddress("http://10.0.2.2:5000/");  // Localhost do OS Host
+        Session.setServerAddress("http://192.168.40.101:5000/");
+//        Session.setServerAddress("http://10.0.2.2:5000/");  // Localhost do OS Host
         Session.setSubjectManager(new SubjectManager());
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //TODO check if user is logged in local database to update Session class
                 if (Session.isLogged()){
                     Intent intentProfile = new Intent(InitialActivity.this, ProfileActivity.class);
                     finish();

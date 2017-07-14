@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
-import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepSemesterSubjectsActivity;
 
 public class StepLockingAskActivity extends AppCompatActivity {
 
@@ -33,12 +33,19 @@ public class StepLockingAskActivity extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StepPeriodSubjectsActivity.setPeriodNumber(1);
-                Intent intentGoSubjects = new Intent(StepLockingAskActivity.this, StepPeriodSubjectsActivity.class);
+                StepSemesterSubjectsActivity.setSemesterNumber(1);
+                Intent intentGoSubjects = new Intent(StepLockingAskActivity.this, StepSemesterSubjectsActivity.class);
                 startActivity(intentGoSubjects);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepLockingAskActivity.this, StepAdmissionSemesterActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

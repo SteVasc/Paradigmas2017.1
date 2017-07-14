@@ -20,6 +20,8 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepAdmissionSemesterActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementAskActivity;
 
 import java.util.ArrayList;
 
@@ -48,9 +50,7 @@ public class StepOptionalSelectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Subject subject = subjects.get(i);
-                int nextCode = subject.getInclusionStatus().getCode() + 1;
-                int codeLooped = ((nextCode) % 4);
-                changeListItemColor(view, subject, codeLooped);
+                changeListItemColor(view, subject,(subject.getStatus().getCode()+1)%4);
             }
         });
 
@@ -97,6 +97,13 @@ public class StepOptionalSelectActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepOptionalSelectActivity.this, StepOptionalStartActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
     public void updateStepState(){
         for (Subject subject : subjects){

@@ -9,8 +9,7 @@ import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalSelectActivity;
-import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalStartActivity;
-import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepSemesterSubjectsActivity;
 
 public class StepReviewAskActivity extends AppCompatActivity{
 
@@ -30,8 +29,8 @@ public class StepReviewAskActivity extends AppCompatActivity{
         btnRequiredReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentBackProfile = new Intent(StepReviewAskActivity.this, StepPeriodSubjectsActivity.class);
-                StepPeriodSubjectsActivity.setReview(true);
+                Intent intentBackProfile = new Intent(StepReviewAskActivity.this, StepSemesterSubjectsActivity.class);
+                StepSemesterSubjectsActivity.setReview(true);
                 startActivity(intentBackProfile);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -40,8 +39,8 @@ public class StepReviewAskActivity extends AppCompatActivity{
         btnBackToBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentBackProfile = new Intent(StepReviewAskActivity.this, StepPeriodSubjectsActivity.class);
-                StepPeriodSubjectsActivity.setReview(false);
+                Intent intentBackProfile = new Intent(StepReviewAskActivity.this, StepSemesterSubjectsActivity.class);
+                StepSemesterSubjectsActivity.setReview(false);
                 startActivity(intentBackProfile);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -56,5 +55,12 @@ public class StepReviewAskActivity extends AppCompatActivity{
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepReviewAskActivity.this, StepFinalizeAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

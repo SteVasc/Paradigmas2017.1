@@ -65,6 +65,12 @@
             android:layout_marginTop="30dp"
             android:layout_below="@+id/password"
             android:layout_toEndOf="@+id/fab_sign_in" />
+    <ImageButton
+        android:id="@+id/button_server_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/server_config_icon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -50,6 +50,7 @@ public class SubjectDAO extends DAO {
                 subjects.add(subject);
             } while (cursor.moveToNext());
         }
+        close();
         return subjects;
     }
 

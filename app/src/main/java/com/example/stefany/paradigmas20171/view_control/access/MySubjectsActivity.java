@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -17,7 +16,6 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
-import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
 
 import java.util.ArrayList;
 
@@ -44,6 +42,13 @@ public class MySubjectsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(MySubjectsActivity.this, ProfileActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
     public void populateList(){
         ArrayAdapter<Subject> adapter = new MySubjectsActivity.SubjectListAdapter();

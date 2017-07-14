@@ -12,7 +12,7 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
-import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepPeriodSubjectsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepSemesterSubjectsActivity;
 
 public class StepLockingTimeActivity extends AppCompatActivity {
 
@@ -34,10 +34,10 @@ public class StepLockingTimeActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StepPeriodSubjectsActivity.setPeriodNumber(1);
+                StepSemesterSubjectsActivity.setSemesterNumber(1);
                 int numberOfPeriodsLocked = spinner.getSelectedItemPosition();
                 Session.adjustPeriods(numberOfPeriodsLocked + 1);
-                Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepPeriodSubjectsActivity.class);
+                Intent intentGoLockingTime = new Intent(StepLockingTimeActivity.this, StepSemesterSubjectsActivity.class);
                 startActivity(intentGoLockingTime);
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -57,5 +57,12 @@ public class StepLockingTimeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepLockingTimeActivity.this, StepLockingAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

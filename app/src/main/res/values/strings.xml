@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Curso.organize(BSI)</string>
+    <string name="app_name">.organize(BSI)</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Sign in</string>
 

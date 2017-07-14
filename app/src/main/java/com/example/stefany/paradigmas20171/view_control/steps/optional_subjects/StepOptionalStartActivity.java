@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.stefany.paradigmas20171.R;
+import com.example.stefany.paradigmas20171.view_control.steps.StepAdmissionSemesterActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementAskActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementSelectActivity;
 
@@ -41,5 +42,12 @@ public class StepOptionalStartActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepOptionalStartActivity.this, StepRequiredComplementAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }

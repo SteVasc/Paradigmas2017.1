@@ -19,6 +19,9 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.results.WaitingForResultsActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepExcludedOptionalAskActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalStartActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementAskActivity;
 
 import java.util.ArrayList;
 
@@ -67,6 +70,13 @@ public class StepFinalizeAskActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepFinalizeAskActivity.this, StepExcludedOptionalAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
     public void changeListItemColor(View view, Subject subject, int code){

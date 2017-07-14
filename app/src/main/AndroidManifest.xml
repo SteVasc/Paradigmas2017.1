@@ -46,7 +46,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view_control.steps.required_subjects.StepPeriodSubjectsActivity"
+            android:name=".view_control.steps.required_subjects.StepSemesterSubjectsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -58,7 +58,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view_control.steps.StepAdmissionPeriodActivity"
+            android:name=".view_control.steps.StepAdmissionSemesterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

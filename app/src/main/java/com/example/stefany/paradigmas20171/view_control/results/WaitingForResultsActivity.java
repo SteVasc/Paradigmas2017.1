@@ -13,6 +13,9 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
+import com.example.stefany.paradigmas20171.view_control.steps.StepFinalizeAskActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalStartActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.required_subjects.StepRequiredComplementAskActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,9 +46,8 @@ public class WaitingForResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_waiting_for_results);
         urlAddress = Session.getServerAddress();
         updatedSubjects = Session.getSubjectManager().getUpdatedSubjects();
-        communicateByPass();
         handleServerResponse();
-        //communicate();
+        communicate();
     }
 
     public void toNext(boolean messageReceived){
@@ -56,6 +58,13 @@ public class WaitingForResultsActivity extends AppCompatActivity {
             startActivity(intentGoToResults);
             finish();
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(WaitingForResultsActivity.this, StepFinalizeAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
     public void communicateByPass(){
@@ -106,14 +115,12 @@ public class WaitingForResultsActivity extends AppCompatActivity {
             if (status.contains("ok")){
                 getSubjectsResults();
                 OptimizeResultsActivity.setOriginalSubjects(this.resultSubjects);
-                Log.d("RES_A", "passed");
                 toNext(true);
             } else {
-                Log.d("RES_A", "on_else");
+
                 toNext(false);
             }
-        } catch (JSONException e) {
-            Log.d("RES_A", "on_stacktrace");
+        } catch (Exception e) {
             toNext(false);
             e.printStackTrace();
         }
@@ -128,6 +135,7 @@ public class WaitingForResultsActivity extends AppCompatActivity {
             for (int i = 0; i < length; i++){
                 final JSONObject jsonObject = array.getJSONObject(i);
                 Subject subject = Session.getSubjectManager().getSubjectByCode(jsonObject.getString("code"));
+                subject.setSemester(jsonObject.getInt("semester"));
                 subjectArrayList.add(subject);
             }
             resultSubjects = subjectArrayList;
@@ -187,6 +195,7 @@ public class WaitingForResultsActivity extends AppCompatActivity {
                     }
                 }
             } else {
+                communicateByPass();
                 this.result = "SERVIDOR NÃO RESPONDENDO";
             }
             this.result = result.toString();

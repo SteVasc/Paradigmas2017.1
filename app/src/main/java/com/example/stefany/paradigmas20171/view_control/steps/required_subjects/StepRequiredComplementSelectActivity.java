@@ -24,6 +24,8 @@ import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 import com.example.stefany.paradigmas20171.model.infrastructure.SubjectStatus;
 import com.example.stefany.paradigmas20171.view_control.access.LoginActivity;
 import com.example.stefany.paradigmas20171.view_control.access.ProfileActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepAdmissionSemesterActivity;
+import com.example.stefany.paradigmas20171.view_control.steps.StepReviewAskActivity;
 import com.example.stefany.paradigmas20171.view_control.steps.optional_subjects.StepOptionalStartActivity;
 
 import java.util.ArrayList;
@@ -99,6 +101,13 @@ public class StepRequiredComplementSelectActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intentForward = new Intent(StepRequiredComplementSelectActivity.this, StepReviewAskActivity.class);
+        finish();
+        startActivity(intentForward);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
     public void getAllSubjects(){

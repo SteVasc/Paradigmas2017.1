@@ -1,11 +1,13 @@
 package com.example.stefany.paradigmas20171.view_control.access;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.stefany.paradigmas20171.R;
@@ -47,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private String urlAddress;
     private String serverResponse;
     private boolean loginDenied;
+    private ImageButton btnServerConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,13 @@ public class LoginActivity extends AppCompatActivity {
         btnContinue = (Button) findViewById(R.id.continue_button);
         urlAddress = Session.getServerAddress();
         serverResponse = "";
+        btnServerConfig = (ImageButton) findViewById(R.id.button_server_config);
+        btnServerConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +99,23 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void showDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+        alert.setTitle("Endereço do servidor");
+        alert.setMessage("Qual o endereço do servidor");
+        alert.setCancelable(true);
+        final EditText address = new EditText(this);
+        alert.setView(address);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Session.setServerAddress(address.getText().toString());
+                Toast.makeText(LoginActivity.this, Session.getServerAddress(), Toast.LENGTH_SHORT).show();
+            }
+        }).show();
+
+    }
+
     public void communicateBypass(){
         this.serverResponse = "{\"email\":\"ayy@lma.o\",\"password\":\"dadada\"," +
                 "\"semester\":\"5\"," +
@@ -101,9 +129,20 @@ public class LoginActivity extends AppCompatActivity {
             ArrayList<Subject> mySubjects = getMySubjects(serverResponse);
             setCredentials(serverResponse);
             Session.getSubjectManager().setMySubjects(mySubjects);
+            ProfileActivity.setSemester(getMaxSemester()-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getMaxSemester() {
+        int i = 0;
+        for (Subject subject : Session.getSubjectManager().getMySubjects()){
+            if (subject.getSemester() > i){
+                i = subject.getSemester();
+            }
+        }
+        return i;
     }
 
     public void setCredentials(String toJson) throws JSONException {
@@ -128,11 +167,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public Subject adjustStatus(Subject s, String status){
         Subject subject = s;
-        if (status == "FAILED"){
+        if (status.contains("FAILED")){
             subject.setStatus(SubjectStatus.DISAPPROVED);
-        } else if (status == "PASSED"){
+        } else if (status.contains("PASSED")){
             subject.setStatus(SubjectStatus.APPROVED);
-        } else if (status == "ONGOING"){
+        } else if (status.contains("ONGOING")){
             subject.setStatus(SubjectStatus.STUDYING);
         }
         return subject;
@@ -140,18 +179,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public void communicate(){
         final LoginActivity.LoginController controller = new LoginActivity.LoginController();
-        controller.execute();
         try {
+            controller.execute();
             controller.get();
-            ArrayList<Subject> mySubjects = getMySubjects(serverResponse);
-            setCredentials(serverResponse);
-            Session.getSubjectManager().setMySubjects(mySubjects);
+            handleAnswer();
 
-        } catch (InterruptedException | ExecutionException | JSONException e) {
+        } catch (JSONException e) {
             abortOperation();
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         this.serverResponse = controller.result;
+    }
+
+    private void handleAnswer() throws JSONException {
+        ArrayList<Subject> mySubjects = getMySubjects(serverResponse);
+        setCredentials(serverResponse);
+        Session.getSubjectManager().setMySubjects(mySubjects);
     }
 
     private void attemptLogin() {
@@ -176,8 +223,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 Session.setEmail(email);
                 Session.setPassword(password);
-                //communicate();
-                communicateBypass();
+                communicate();
             } catch (Exception e) {
                 loginDenied = true;
                 e.printStackTrace();
@@ -219,18 +265,15 @@ public class LoginActivity extends AppCompatActivity {
                     connection.setRequestMethod("POST");
                     OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
                     /*
-                    Passando os atributos para um json, mais fácil do que lidar com strings
+                    Passando os atributos para um json
                     */
                     JSONObject json = new JSONObject();
                     json.put("email", Session.getEmail());
                     json.put("password", Session.getPassword());
-
                     writer.write(json.toString());
                     writer.close();
-
                     connection.connect();
                     InputStream in;
-
                     /*
                      Antes de abrir uma conexão com o inputStream, verificar o código de retorno da
                     requisição, caso a o código de retorno seja de erro a conexão de resposta virá
@@ -248,7 +291,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    abortOperation();
+                    //communicateBypass();
                     e.printStackTrace();
                 } finally {
                     if (connection != null) {
@@ -256,8 +299,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                abortOperation();
-                Toast.makeText(LoginActivity.this, "Servidor não respondendo", Toast.LENGTH_LONG).show();
+                //communicateBypass();
             }
             this.result = result.toString();
             return result.toString();

@@ -72,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             controller.get();
         } catch (InterruptedException | ExecutionException e) {
-            abortOperation();
             e.printStackTrace();
         }
         this.serverResponse = controller.result;
@@ -176,7 +175,6 @@ public class RegisterActivity extends AppCompatActivity {
                     writer.close();
                     connection.connect();
                     InputStream in;
-
                     if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
                         in = new BufferedInputStream(connection.getErrorStream());
                     else
@@ -189,7 +187,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    abortOperation();
                     e.printStackTrace();
                 } finally {
                     if (connection != null) {
