@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Session.setLogged(false);
+                Session.setEmail("eu@example.com");
+                Session.setPassword("12345");
                 Intent intentFirstAccess = new Intent(LoginActivity.this, StepFirstAccessActivity.class);
                 startActivity(intentFirstAccess);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -166,19 +168,20 @@ public class LoginActivity extends AppCompatActivity {
             loginDenied = true;
         }
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        else if (TextUtils.isEmpty(email)) {
             this.email.setError(getString(R.string.error_field_required));
             focusView = this.email;
             loginDenied = true;
-        }
-        try {
-            Session.setEmail(email);
-            Session.setPassword(password);
-            //communicate();
-            communicateBypass();
-        } catch (Exception e){
-            loginDenied = true;
-            e.printStackTrace();
+        } else {
+            try {
+                Session.setEmail(email);
+                Session.setPassword(password);
+                //communicate();
+                communicateBypass();
+            } catch (Exception e) {
+                loginDenied = true;
+                e.printStackTrace();
+            }
         }
         if (focusView != null) {
             focusView.requestFocus();

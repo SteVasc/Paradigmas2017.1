@@ -96,7 +96,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view_control.results.OptmizeResutsActivity"
+            android:name=".view_control.results.OptimizeResultsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

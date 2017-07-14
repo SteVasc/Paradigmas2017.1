@@ -1,6 +1,6 @@
 package com.example.stefany.paradigmas20171.view_control.results;
 
-import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,29 +8,109 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.SeekBar;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.model.infrastructure.Subject;
 
 import java.util.ArrayList;
 
-public class OptmizeResutsActivity extends AppCompatActivity {
+public class OptimizeResultsActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private ArrayList<Subject> subjects;
+    private static ArrayList<Subject> subjects;
+    private static ArrayList<Subject> originalSubjects;
     private Subject[] subjectsArray;
+    private static Integer semesterNumber;
+    private ImageButton previous;
+    private ImageButton next;
+    private TextView txtSemester;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_optmize_resuts);
         gridView = (GridView) findViewById(R.id.grid_view);
-        testSubjects();
+        txtSemester = (TextView) findViewById(R.id.txt_semester_number);
+        previous = (ImageButton) findViewById(R.id.btn_previous_semester);
+        next = (ImageButton) findViewById(R.id.btn_next_semester);
+
+        txtSemester.setText("Periodo: " + semesterNumber.toString());
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (semesterNumber < getMaxPeriod()){
+                    setSemesterNumber(semesterNumber + 1);
+                    setOriginalSubjects(originalSubjects);
+                    Integer i = originalSubjects.size();
+                    Log.d("SI_ZE", i.toString());
+                    Intent intentRepeat = new Intent(OptimizeResultsActivity.this, OptimizeResultsActivity.class);
+                    finish();
+                    startActivity(intentRepeat);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                }
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (semesterNumber > getStartingSemester()){
+                    OptimizeResultsActivity.setStartingSemester();
+                    setOriginalSubjects(originalSubjects);
+                    Integer i = originalSubjects.size();
+                    Log.d("SI_ZE", i.toString());
+                    Intent intentRepeat = new Intent(OptimizeResultsActivity.this, OptimizeResultsActivity.class);
+                    finish();
+                    startActivity(intentRepeat);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                }
+            }
+        });
+        getSemesterSubjects();
+        Integer i = subjects.size();
+        Log.d("SI_ZE1", i.toString());
         allocate();
         gridView.setAdapter(new GridAdapter(subjectsArray));
+    }
+
+    private void getSemesterSubjects() {
+        subjects = new ArrayList<>();
+        for (Subject subject : originalSubjects){
+            if (subject.getSemester() == semesterNumber){
+                subjects.add(subject);
+            }
+        }
+    }
+
+    public static void setSemesterNumber(Integer semesterNumber) {
+        OptimizeResultsActivity.semesterNumber = semesterNumber;
+    }
+
+    public static void setStartingSemester(){
+        semesterNumber = getStartingSemester();
+    }
+
+    public static int getMaxPeriod(){
+        int number = 0;
+        for (Subject subject : originalSubjects){
+            if (subject.getSemester() > number){
+                number = subject.getSemester();
+            }
+        }
+        return number;
+    }
+
+    public static int getStartingSemester(){
+        int number = 10;
+        for (Subject subject : originalSubjects){
+            if (subject.getSemester() < number){
+                number = subject.getSemester();
+            }
+        }
+        return number;
     }
 
     public void allocate(){
@@ -38,8 +118,10 @@ public class OptmizeResutsActivity extends AppCompatActivity {
         for (Subject subject : subjects){
             String[] parts = subject.getSchedule().split(";");
             for (int i = 0; i < parts.length; i++) {
+                Log.d("PAR_TS", parts[i]);
                 String schedule = parts[i];
-                Subject s = subject;
+                Subject s = new Subject();
+                s.setDescription(subject.getDescription());
                 s.setSchedule(schedule);
                 subjectsArray[getPosition(schedule)] = s;
             }
@@ -84,6 +166,10 @@ public class OptmizeResutsActivity extends AppCompatActivity {
         subjects.get(2).setSchedule("QUI 10-12");
         subjects.get(3).setSchedule("TER 10-12;QUI 08-10;SEX 08-10");
         subjects.get(4).setSchedule("TER 08-10;SEX 10-12");
+    }
+
+    public static void setOriginalSubjects(ArrayList<Subject> originalSubjects) {
+        OptimizeResultsActivity.originalSubjects = originalSubjects;
     }
 
     private class GridAdapter extends BaseAdapter {

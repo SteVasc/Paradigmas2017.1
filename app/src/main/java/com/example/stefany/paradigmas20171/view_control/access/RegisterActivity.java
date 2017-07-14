@@ -1,6 +1,9 @@
 package com.example.stefany.paradigmas20171.view_control.access;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,14 +18,17 @@ import com.example.stefany.paradigmas20171.R;
 import com.example.stefany.paradigmas20171.model.infrastructure.Session;
 import com.example.stefany.paradigmas20171.view_control.steps.StepFirstAccessActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
@@ -65,10 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         controller.execute();
         try {
             controller.get();
-        } catch (InterruptedException e) {
-            abortOperation();
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             abortOperation();
             e.printStackTrace();
         }
@@ -76,12 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
     private void attemptRegister() {
@@ -106,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
             cancel = true;
         }
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        else if (TextUtils.isEmpty(email)) {
             this.email.setError(getString(R.string.error_field_required));
             focusView = this.email;
             cancel = true;
@@ -114,12 +115,29 @@ public class RegisterActivity extends AppCompatActivity {
             this.email.setError(getString(R.string.error_invalid_email));
             focusView = this.email;
             cancel = true;
+        } else {
+            Session.setEmail(this.email.getText().toString());
+            Session.setPassword(this.password.getText().toString());
+            communicate();
         }
         if (focusView != null) {
             focusView.requestFocus();
         }
-        register();
+        handleResponse();
     }
+
+    public void handleResponse(){
+        try {
+            JSONObject object = new JSONObject(this.serverResponse);
+            String status = object.getString("status");
+            if (status.equals("ok")){
+                register();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void abortOperation(){
         cancel = true;
     }
@@ -127,15 +145,10 @@ public class RegisterActivity extends AppCompatActivity {
     private void register() {
         if (!cancel) {
             //Operation Successful
-            Session.setEmail(this.email.getText().toString());
-            Session.setPassword(this.password.getText().toString());
-            communicate();
             Toast.makeText(RegisterActivity.this, this.serverResponse, Toast.LENGTH_LONG).show();
-            if (!cancel) {
-                Intent intentGoSteps = new Intent(RegisterActivity.this, StepFirstAccessActivity.class);
-                finish();
-                startActivity(intentGoSteps);
-            }
+            Intent intentGoSteps = new Intent(RegisterActivity.this, StepFirstAccessActivity.class);
+            finish();
+            startActivity(intentGoSteps);
         }
     }
 
@@ -148,50 +161,69 @@ public class RegisterActivity extends AppCompatActivity {
 
             StringBuilder result = new StringBuilder();
             HttpURLConnection connection = null;
+            if (isURLReachable(RegisterActivity.this)) {
+                try {
+                    URL url = new URL(urlAddress + "register/");
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestMethod("PUT");
+                    OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+                    JSONObject json = new JSONObject();
+                    json.put("email", Session.getEmail());
+                    json.put("password", Session.getPassword());
+                    writer.write(json.toString());
+                    writer.close();
+                    connection.connect();
+                    InputStream in;
 
-            try {
-                URL url = new URL(urlAddress + "register/");
+                    if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
+                        in = new BufferedInputStream(connection.getErrorStream());
+                    else
+                        in = new BufferedInputStream(connection.getInputStream());
 
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-                connection.setRequestMethod("PUT");
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
 
-                OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-
-                JSONObject json = new JSONObject();
-                json.put("email", Session.getEmail());
-                json.put("password", Session.getPassword());
-
-                writer.write(json.toString());
-                writer.close();
-
-                connection.connect();
-
-                InputStream in;
-
-                if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST)
-                    in = new BufferedInputStream(connection.getErrorStream());
-                else
-                    in = new BufferedInputStream(connection.getInputStream());
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));;
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                } catch (Exception e) {
+                    abortOperation();
+                    e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
                 }
-
-            } catch (Exception e) {
-                abortOperation();
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
+            } else {
+                this.result = "SERVIDOR NÂO RESPONDENDO";
             }
             this.result = result.toString();
             return result.toString();
         }
+    }
+    private boolean isURLReachable(Context context) {
+        boolean isResponding = false;
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            try {
+                URL url = new URL(Session.getServerAddress());   // Change to "http://google.com" for www  test.
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(5 * 1000);          // 10 s.
+                urlConnection.connect();
+                if (urlConnection.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                    isResponding = true;
+                } else {
+                    isResponding = false;
+                }
+            } catch (MalformedURLException e1) {
+                isResponding = false;
+            } catch (IOException e) {
+                isResponding = false;
+            }
+        }
+        return isResponding;
     }
 }

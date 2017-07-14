@@ -45,7 +45,7 @@ public class StepPeriodSubjectsActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.button_negative);
         textPeriodNumber = (TextView) findViewById(R.id.text_period_number);
         textPeriodNumber.setText("Periodo: " + periodNumber.toString());
-        numberOfScreens = Session.getPeriods();
+        numberOfScreens = Session.getSemesters();
         getSubjectsbyPeriod();
         populateList();
 

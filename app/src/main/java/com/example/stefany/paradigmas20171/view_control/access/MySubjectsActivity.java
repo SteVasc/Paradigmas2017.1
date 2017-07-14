@@ -34,8 +34,6 @@ public class MySubjectsActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_view);
         btnBack = (Button) findViewById(R.id.button_back);
         subjects = Session.getSubjectManager().getMySubjects();
-        Integer size = subjects.size();
-        Log.d("LULULULU", size.toString());
         populateList();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +66,7 @@ public class MySubjectsActivity extends AppCompatActivity {
             TextView subjectStatus = (TextView) view.findViewById(R.id.text_status);
             SubjectStatus status = subject.getStatus();
             subjectStatus.setText("Status: " + status.getDescription());
+            view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             return view;
         }
     }

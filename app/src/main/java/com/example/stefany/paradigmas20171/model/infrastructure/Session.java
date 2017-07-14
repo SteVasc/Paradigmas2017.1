@@ -9,7 +9,7 @@ public class Session {
     private static boolean logged;
     private static String email;
     private static String password;
-    private static int periods;
+    private static int semesters;
     private static String serverAddress;
     private static Context context;
     private static SubjectManager subjectManager;
@@ -18,20 +18,22 @@ public class Session {
     public static void setPeriods(int admissionYear, int entry) {
         int actualYear = Calendar.getInstance().get(Calendar.YEAR);
         int years = actualYear - admissionYear;
-        if (currentEntry == entry){
-            periods = years*2;
+        if (admissionYear == actualYear){
+            semesters = 1;
+        } else if (currentEntry == entry){
+            semesters = years*2;
         } else if (currentEntry < entry){
-            periods = (years*2) - 1;
+            semesters = (years*2) - 1;
         } else {
-            periods = (years*2) + 1;
+            semesters = (years*2) + 1;
         }
     }
     public static void adjustPeriods(int numberOfPeriods){
-        periods = periods - numberOfPeriods;
+        semesters = semesters - numberOfPeriods;
     }
 
-    public static int getPeriods() {
-        return periods;
+    public static int getSemesters() {
+        return semesters;
     }
 
     public static void setLogged(boolean logged) {
