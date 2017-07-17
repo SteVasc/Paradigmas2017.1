@@ -223,7 +223,8 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 Session.setEmail(email);
                 Session.setPassword(password);
-                communicate();
+                //communicate();
+                communicateBypass();
             } catch (Exception e) {
                 loginDenied = true;
                 e.printStackTrace();

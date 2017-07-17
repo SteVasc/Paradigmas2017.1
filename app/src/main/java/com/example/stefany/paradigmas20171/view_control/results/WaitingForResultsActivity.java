@@ -46,8 +46,9 @@ public class WaitingForResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_waiting_for_results);
         urlAddress = Session.getServerAddress();
         updatedSubjects = Session.getSubjectManager().getUpdatedSubjects();
+        communicateByPass();
         handleServerResponse();
-        communicate();
+        //communicate();
     }
 
     public void toNext(boolean messageReceived){
